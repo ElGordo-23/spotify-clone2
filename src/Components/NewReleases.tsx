@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
-import { getNewReleases } from '../API/hooks-home';
+import { getNewReleases } from '../API/getNewReleases';
+import { useAxiosClient } from './AxiosClientProvider';
 
-type Release = {
+export type Release = {
   id: string;
   name: string;
 };
 
-export function NewReleases({ token }: { token: string }) {
-  const [releases, setNewReleases] = useState<[]>([]);
-  console.log(releases);
+export function NewReleases() {
+  const [releases, setNewReleases] = useState<Release[]>([]);
+
+  const axiosClient =  useAxiosClient()
+
 
   useEffect(() => {
-    getNewReleases(token).then((data) => setNewReleases(data.albums.items));
-  }, [token]);
+    getNewReleases(axiosClient).then((data) => setNewReleases(data?.albums?.items || [])).catch((error)=>console.log(error));
+  }, [axiosClient]);
 
   return (
-    <div>
-      {!token
-        ? null
-        : releases.map((release: Release) => (
-            <div key={release.id}>{release.name}</div>
+    <div className=" grid grid-cols-2 gap-10 items-center ">
+      {releases.map((release) => (
+            <div
+              key={release.id}
+              className="hover:bg-gray-300  font-bold py-2 px-4 border-4 border-black w-32 text-center  h-20"
+            >
+              {release.name}
+            </div>
           ))}
     </div>
   );

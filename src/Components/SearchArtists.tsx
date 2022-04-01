@@ -1,27 +1,31 @@
 import { useEffect, useState } from 'react';
-import { searchArtists } from '../API/hooks-home';
+import { searchArtists } from '../API/searchArtists';
+import { useAxiosClient } from './AxiosClientProvider';
 
 type Artist = {
   id: string;
   name: string;
 };
 
-export function SearchArtists({ token }: { token: string }) {
-  const [searchedArtists, setSearchedArtists] = useState<[]>([]);
+export function SearchArtists() {
+  const [searchedArtists, setSearchedArtists] = useState<Artist[]>([]);
   const [searchKey, setSearchKey] = useState<string>('');
 
+  const axiosClient =  useAxiosClient()
+
+
   useEffect(() => {
-    searchArtists(token, searchKey).then((data) =>
+    searchArtists(axiosClient, searchKey).then((data) =>
       setSearchedArtists(data.artists.items),
     );
-  }, [token, searchKey]);
+  }, [axiosClient, searchKey]);
   return (
     <div>
       <form>
         <input type="text" onChange={(e) => setSearchKey(e.target.value)} />
         {!searchKey
           ? null
-          : searchedArtists.map((artist: Artist) => (
+          : searchedArtists.map((artist) => (
               <div key={artist.id}>{artist.name}</div>
             ))}
       </form>
