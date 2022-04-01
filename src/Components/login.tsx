@@ -5,12 +5,15 @@ export function Login() {
   const RESPONSE_TYPE: string = 'token';
 
   return (
-    <div>
-      <a
-        href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-      >
-        Login to Spotify
-      </a>
+    <div className="flex flex-col items-center top-24 relative">
+      <div className="p-7 border-2 border-black">
+        <a
+          className=""
+          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+        >
+          Login to Spotify
+        </a>
+      </div>
     </div>
   );
 }

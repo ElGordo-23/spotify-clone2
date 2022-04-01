@@ -5,7 +5,7 @@ export const getNewReleases = async (axiosClient: Axios) => {
     const response = await axiosClient.get(
       'https://api.spotify.com/v1/browse/new-releases',
       {
-        params: { country: 'AT', limit: 10, offset: 0 },
+        params: { country: 'AT', limit: 16, offset: 0 },
       },
     );
     return response.data;

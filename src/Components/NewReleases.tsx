@@ -5,28 +5,34 @@ import { useAxiosClient } from './AxiosClientProvider';
 export type Release = {
   id: string;
   name: string;
+  images: { url: string }[];
 };
 
 export function NewReleases() {
   const [releases, setNewReleases] = useState<Release[]>([]);
 
-  const axiosClient =  useAxiosClient()
-
+  const axiosClient = useAxiosClient();
 
   useEffect(() => {
-    getNewReleases(axiosClient).then((data) => setNewReleases(data?.albums?.items || [])).catch((error)=>console.log(error));
+    getNewReleases(axiosClient)
+      .then((data) => setNewReleases(data?.albums?.items || []))
+      .catch((error) => console.log(error));
   }, [axiosClient]);
 
+  console.log(releases);
+
   return (
-    <div className=" grid grid-cols-2 gap-10 items-center ">
+    <div className=" grid grid-cols-4 gap-24 items-center ">
       {releases.map((release) => (
-            <div
-              key={release.id}
-              className="hover:bg-gray-300  font-bold py-2 px-4 border-4 border-black w-32 text-center  h-20"
-            >
-              {release.name}
-            </div>
-          ))}
+        <div key={release.id} className=" w-32 text-center  h-20">
+          <img
+            className="hover:bg-gray-300"
+            src={release.images[0].url}
+            alt="Release"
+          ></img>
+          {release.name}
+        </div>
+      ))}
     </div>
   );
 }
