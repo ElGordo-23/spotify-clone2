@@ -4,7 +4,7 @@ import { SearchArtists } from './SearchArtists';
 import { Context } from '../App';
 
 export function Home() {
-  const token = useContext(Context);
+  const token: string = useContext(Context);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getNewReleases = async (token) => {
+export const getNewReleases = async (token: string) => {
   try {
     const response = await axios.get(
       'https://api.spotify.com/v1/browse/new-releases',
@@ -9,7 +9,7 @@ export const getNewReleases = async (token) => {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        params: { country: 'SE', limit: 10, offset: 0 },
+        params: { country: 'AT', limit: 10, offset: 0 },
       },
     );
     return response.data;
@@ -18,7 +18,7 @@ export const getNewReleases = async (token) => {
   }
 };
 
-export const searchArtists = async (token, searchKey) => {
+export const searchArtists = async (token: string, searchKey: string) => {
   try {
     const { data } = await axios.get('https://api.spotify.com/v1/search', {
       headers: {

@@ -1,4 +1,0 @@
-import axios from 'axios';
-
-export const accessToken =
-  'BQCMwQbjmtyixweJ3qWuuSZa1MAF7SUk9iLUd4GeVHjGgPUwt2bfK6AGXdYyk_LucM6hkA49XMWvHSqL8kLw9N2Lv6mtU6Fvebb9imSdbh7sujSx7oEkbfFgOBCUQE0XBhJW6rbzLZWWNg';

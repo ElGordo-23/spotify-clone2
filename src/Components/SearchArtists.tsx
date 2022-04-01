@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import { searchArtists } from '../API/hooks-home';
 
-export function SearchArtists(token) {
-  const [searchedArtists, setSearchedArtists] = useState([] || null);
-  const [searchKey, setSearchKey] = useState('' || null);
+type Artist = {
+  id: string;
+  name: string;
+};
+
+export function SearchArtists({ token }: { token: string }) {
+  const [searchedArtists, setSearchedArtists] = useState<[]>([]);
+  const [searchKey, setSearchKey] = useState<string>('');
 
   useEffect(() => {
-    searchArtists(token.token, searchKey).then((data) =>
+    searchArtists(token, searchKey).then((data) =>
       setSearchedArtists(data.artists.items),
     );
   }, [token, searchKey]);
@@ -16,7 +21,7 @@ export function SearchArtists(token) {
         <input type="text" onChange={(e) => setSearchKey(e.target.value)} />
         {!searchKey
           ? null
-          : searchedArtists.map((artist) => (
+          : searchedArtists.map((artist: Artist) => (
               <div key={artist.id}>{artist.name}</div>
             ))}
       </form>
