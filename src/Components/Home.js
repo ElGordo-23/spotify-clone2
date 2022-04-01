@@ -1,53 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Login } from '../API/login';
+import { useContext } from 'react';
 import { NewReleases } from './NewReleases';
 import { SearchArtists } from './SearchArtists';
+import { Context } from '../App';
 
 export function Home() {
-  const [token, setToken] = useState('');
+  const token = useContext(Context);
 
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem('token');
-
-    if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split('&')
-        .find((elem) => elem.startsWith('access_token'))
-        .split('=')[1];
-
-      window.location.hash = '';
-      window.localStorage.setItem('token', token);
-    }
-
-    setToken(token);
-  }, []);
-
-  const logout = () => {
-    setToken('');
-    window.localStorage.removeItem('token');
-  };
-
-  const refreshPage = () => {
-    window.location.reload(false);
-  };
   return (
     <div>
-      {!token ? (
-        <Login />
-      ) : (
-        <button
-          onClick={() => {
-            logout();
-            refreshPage();
-          }}
-        >
-          Logout
-        </button>
-      )}
-      <NewReleases />
-      <SearchArtists />
+      <NewReleases token={token} />
+      <SearchArtists token={token} />
     </div>
   );
 }
