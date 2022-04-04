@@ -4,7 +4,7 @@ import { Home } from './Components/Home';
 import { Login } from './Components/login';
 
 function App() {
-  const { token, logout } = useToken();
+  const { token } = useToken();
 
   return (
     <div>
@@ -12,13 +12,6 @@ function App() {
         <Login />
       ) : (
         <AxiosClientProvider>
-          <button
-            onClick={() => {
-              logout();
-            }}
-          >
-            Logout
-          </button>
           <Home />
         </AxiosClientProvider>
       )}

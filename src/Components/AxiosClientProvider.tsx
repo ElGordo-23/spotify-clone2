@@ -16,7 +16,6 @@ export const AxiosClientProvider: FC = ({ children }) => {
           },
         }
       : {};
-console.log(config)
     const configuredAxios = axios.create(config);
     return configuredAxios;
   }, [token]);
@@ -28,4 +27,4 @@ console.log(config)
   );
 };
 
-export const useAxiosClient = () => useContext(AxiosClientContext)
+export const useAxiosClient = () => useContext(AxiosClientContext);
