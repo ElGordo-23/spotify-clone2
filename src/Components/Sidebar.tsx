@@ -7,7 +7,7 @@ export function Sidebar() {
   const { logout } = useToken();
 
   return (
-    <div className="absolute inset-y-0 left-0 top-32">
+    <div>
       <aside className="w-64" aria-label="Sidebar">
         <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
           <ul className="space-y-2">
@@ -67,7 +67,6 @@ export function Sidebar() {
             </AxiosClientProvider>
           </ul>
         </div>
-        <Player />
       </aside>
     </div>
   );

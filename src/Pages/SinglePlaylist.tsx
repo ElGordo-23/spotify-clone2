@@ -1,18 +1,28 @@
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getPlaylistTracks } from '../API/getUserPlaylists';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type Tracks = {
-  track: { name: string; id: string; artists: { name: string; id: string }[] };
+  track: {
+    name: string;
+    id: string;
+    uri: string;
+    artists: { name: string; id: string }[];
+  };
 };
+
+export const trackUriContext = createContext(
+  window.localStorage.getItem('trackUri'),
+);
 
 export function SinglePlaylist() {
   const axiosClient = useAxiosClient();
-  const { playlistId } = useParams();
-  const { playlistName } = useParams();
+  const { playlistId, playlistName } = useParams();
 
   const [tracks, setTracks] = useState<Tracks[]>([]);
+
+  const [trackUri, setTrackUri] = useState<string>('');
 
   useEffect(() => {
     getPlaylistTracks(axiosClient, playlistId)
@@ -20,24 +30,32 @@ export function SinglePlaylist() {
       .catch((error) => console.log(error));
   }, [axiosClient, playlistId]);
 
-  console.log(tracks[0]);
+  const storeTrackUri = (trackUri: string) => {
+    setTrackUri(trackUri);
+    window.localStorage.setItem('trackUri', trackUri);
+  };
 
   return (
     <div>
-      <h2 className="relative left-72 top-24 font-extrabold text-6xl">
-        {playlistName}
-      </h2>
-      <div className="absolute left-72 top-48 w-96 h-80">
-        {tracks
-          ? tracks.map((track) => (
-              <div className="flex flex-row justify-between">
-                <div>{track.track.name}</div>{' '}
-                <Link to={`/artist/${track.track.artists[0].id}`}>
-                  {track.track.artists[0].name}
-                </Link>
-              </div>
-            ))
-          : null}
+      <h2 className=" font-extrabold text-6xl text-white">{playlistName}</h2>
+      <div className="">
+        <ul>
+          {tracks
+            ? tracks.map((track) => (
+                <li
+                  key={track.track.id}
+                  className="flex flex-row justify-between text-white"
+                >
+                  <button onClick={() => storeTrackUri(track.track.uri)}>
+                    {track.track.name}
+                  </button>
+                  <Link to={`/artist/${track.track.artists[0].id}`}>
+                    {track.track.artists[0].name}
+                  </Link>
+                </li>
+              ))
+            : null}
+        </ul>
       </div>
     </div>
   );

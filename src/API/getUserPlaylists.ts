@@ -20,8 +20,6 @@ export const getPlaylistTracks = async (
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
     );
 
-    console.log(response.data);
-
     return response.data.items;
   } catch (error) {
     console.log(error);

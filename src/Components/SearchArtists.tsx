@@ -6,7 +6,7 @@ import { useAxiosClient } from './AxiosClientProvider';
 type Artist = {
   id: string;
   name: string;
-  images: { url: string }[];
+  images: { url: string }[] | undefined;
   artists: { id: string; name: string }[];
 };
 
@@ -20,25 +20,29 @@ export function SearchArtists({ searchKey }: SearchArtistProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    searchArtists(axiosClient, searchKey).then((data) =>
-      setSearchedArtists(data.artists.items),
-    );
+    if (searchKey) {
+      searchArtists(axiosClient, searchKey).then((data) =>
+        setSearchedArtists(data.artists.items),
+      );
+    }
   }, [axiosClient, searchKey]);
 
   console.log(searchedArtists);
   return (
     <div className=" grid grid-cols-4 gap-24 items-center bg-gray-700 text-white p-9">
       {searchedArtists.map((artist) => (
-        <div key={artist.id} className=" w-32 text-center  h-20">
-          <img
-            className="hover:bg-gray-300"
-            src={artist.images[0].url}
-            alt="Artist"
-            onClick={() => navigate(`/artist/${artist.id}`)}
-          ></img>
+        <div key={artist?.id} className=" w-32 text-center  h-20">
+          {artist?.images?.[0]?.url && (
+            <img
+              className="hover:bg-gray-300"
+              src={artist.images[0].url}
+              alt="Artist"
+              onClick={() => navigate(`/artist/${artist.id}`)}
+            ></img>
+          )}
           <Link to={`/artist/${artist.id}`}>
             <div>
-              <p>{artist.name}</p>
+              <p>{artist?.name}</p>
             </div>
           </Link>
         </div>
