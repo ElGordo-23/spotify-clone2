@@ -26,18 +26,16 @@ export function SinglePlaylist() {
     <div>
       <h2 className="relative left-72 top-24 font-extrabold text-6xl">
         {playlistName}
-      </h2>{' '}
-      <div className="absolute left-72 top-48 w-24 h-80">
+      </h2>
+      <div className="absolute left-72 top-48 w-96 h-80">
         {tracks
           ? tracks.map((track) => (
-              <ul>
-                <li key={track.track.id}>
-                  <p>{track.track.name}</p>
-                  <Link to={`/artist/${track.track.artists[0].id}`}>
-                    {track.track.artists[0].name}
-                  </Link>
-                </li>
-              </ul>
+              <div className="flex flex-row justify-between">
+                <div>{track.track.name}</div>{' '}
+                <Link to={`/artist/${track.track.artists[0].id}`}>
+                  {track.track.artists[0].name}
+                </Link>
+              </div>
             ))
           : null}
       </div>

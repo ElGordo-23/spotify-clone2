@@ -11,7 +11,6 @@ export const getNewReleases = async (
         params: { country: 'AT', limit: displayAmount, offset: 0 },
       },
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

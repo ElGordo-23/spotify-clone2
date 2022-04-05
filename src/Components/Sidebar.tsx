@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useToken } from '../API/useToken';
 import { AxiosClientProvider } from './AxiosClientProvider';
+import Player from './Player';
 
 export function Sidebar() {
   const { logout } = useToken();
@@ -66,6 +67,7 @@ export function Sidebar() {
             </AxiosClientProvider>
           </ul>
         </div>
+        <Player />
       </aside>
     </div>
   );

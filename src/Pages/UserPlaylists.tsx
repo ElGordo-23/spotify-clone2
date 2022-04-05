@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getUserPlaylists } from '../API/getUserPlaylists';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
 
@@ -13,7 +13,6 @@ export type Playlist = {
 
 export function UserPlaylists() {
   const axiosClient = useAxiosClient();
-  const navigate = useNavigate();
 
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
@@ -29,14 +28,14 @@ export function UserPlaylists() {
         Playlists
       </h2>
       {playlists.map((playlist) => (
-        <button
-          className="relative left-72 top-28"
-          onClick={() =>
-            navigate(`/userPlaylists/${playlist.id}/${playlist.name}`)
-          }
-        >
-          {playlist.name}
-        </button>
+        <ul>
+          <Link
+            to={`/userPlaylists/${playlist.id}/${playlist.name}`}
+            className="relative left-72 top-28"
+          >
+            {playlist.name}
+          </Link>
+        </ul>
       ))}
     </div>
   );
