@@ -5,6 +5,7 @@ import { Home } from './Components/Home';
 import { Login } from './Components/login';
 import { Sidebar } from './Components/Sidebar';
 import { SingleArtist } from './Pages/SingleArtist';
+import { SinglePlaylist } from './Pages/SinglePlaylist';
 import { UserPlaylists } from './Pages/UserPlaylists';
 import { UserProfile } from './Pages/UserProfile';
 
@@ -23,6 +24,10 @@ function App() {
               <Route path="/artist/:artistId" element={<SingleArtist />} />
               <Route path="/userProfile" element={<UserProfile />} />
               <Route path="/userPlaylists" element={<UserPlaylists />} />
+              <Route
+                path="/userPlaylists/:playlistId/:playlistName"
+                element={<SinglePlaylist />}
+              />
             </Routes>
             <Sidebar />
           </Router>

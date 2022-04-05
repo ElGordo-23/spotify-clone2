@@ -13,14 +13,14 @@ export const getUserPlaylists = async (axiosClient: Axios) => {
 
 export const getPlaylistTracks = async (
   axiosClient: Axios,
-  playlistId: string,
+  playlistId: string | undefined,
 ) => {
   try {
     const response = await axiosClient.get(
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
     );
 
-    console.log(response.data.items);
+    console.log(response.data);
 
     return response.data.items;
   } catch (error) {
