@@ -1,7 +1,8 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getPlaylistTracks } from '../API/getUserPlaylists';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
+import Player from '../Components/Player';
 
 type Tracks = {
   track: {
@@ -38,25 +39,30 @@ export function SinglePlaylist() {
   return (
     <div>
       <h2 className=" font-extrabold text-6xl text-white">{playlistName}</h2>
-      <div className="">
-        <ul>
-          {tracks
-            ? tracks.map((track) => (
-                <li
-                  key={track.track.id}
-                  className="flex flex-row justify-between text-white"
+
+      <ul className="">
+        {tracks
+          ? tracks.map((track) => (
+              <li className=" flex flex-col items-baseline mt-3">
+                <button
+                  className="text-white"
+                  onClick={() => storeTrackUri(track.track.uri)}
                 >
-                  <button onClick={() => storeTrackUri(track.track.uri)}>
-                    {track.track.name}
-                  </button>
-                  <Link to={`/artist/${track.track.artists[0].id}`}>
-                    {track.track.artists[0].name}
-                  </Link>
-                </li>
-              ))
-            : null}
-        </ul>
-      </div>
+                  {track.track.name}
+                </button>
+                <Link
+                  className="text-white text-opacity-70"
+                  to={`/artist/${track.track.artists[0].id}`}
+                >
+                  {track.track.artists[0].name}
+                </Link>
+              </li>
+            ))
+          : null}
+      </ul>
+
+      <br />
+      <Player trackUri={trackUri} />
     </div>
   );
 }

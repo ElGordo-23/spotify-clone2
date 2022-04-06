@@ -26,7 +26,7 @@ const Layout: FC = ({ children }) => (
 function App() {
   const { token } = useToken();
   return (
-    <div className=" bg-slate-700 " style={{ height: '100vh', width: '100vw' }}>
+    <div className=" bg-slate-700 ">
       {!token ? (
         <Login />
       ) : (

@@ -71,7 +71,7 @@ export function SingleArtist() {
         ))}
       </ul>
       <h3 className="font-bold text-3xl z-20 text-white ">Albums</h3>
-      <div className="flex flex-row  overflow-auto  z-10 object-cover w-[700px]">
+      <div className="flex flex-row overflow-auto  z-10 object-cover w-[700px]">
         {albums?.map((album) => (
           <img
             src={album.images[2].url}
@@ -83,9 +83,14 @@ export function SingleArtist() {
       <h3 className="relative font-bold text-3xl z-20 text-white ">Singles</h3>
       <div className="flex flex-row overflow-auto z-10 object-cover w-[700px]">
         {singles?.map((single) => (
-          <img src={single.images[2].url} alt={single.name} />
+          <img
+            src={single.images[2].url}
+            alt={single.name}
+            onClick={() => navigate(`/album/${single.id}`)}
+          />
         ))}
       </div>
+      <br />
       <Player trackUri={trackUri} />
     </div>
   );
