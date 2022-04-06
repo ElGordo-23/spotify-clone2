@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getSingleArtist } from '../API/getArtist';
 import { getArtistAlbums } from '../API/getArtistAlbums';
 import { getArtistTopTracks } from '../API/getArtistTopTracks';
@@ -25,9 +25,10 @@ type Tracks = {
 };
 
 export function SingleArtist() {
-  const axiosClient = useAxiosClient();
-
   const { artistId } = useParams();
+
+  const axiosClient = useAxiosClient();
+  const navigate = useNavigate();
 
   const [artist, setArtist] = useState<Artist>();
   const [allMusic, setAllMusic] = useState<AllMusic[]>();
@@ -53,7 +54,7 @@ export function SingleArtist() {
 
   return (
     <div className="relative">
-      <h2 className="absolute left-16 top-0 font-extrabold text-6xl z-20 text-white ">
+      <h2 className="absolute left-4 top-48 font-extrabold text-6xl z-20 text-white ">
         {artist?.name}
       </h2>
       <img
@@ -61,7 +62,7 @@ export function SingleArtist() {
         alt={artist?.name}
         className="z-10 object-cover h-[264px] w-[700px]"
       />
-      <h3 className="  font-bold text-3xl z-20 text-white ">Top Songs</h3>
+      <h3 className="font-bold text-3xl z-20 text-white ">Top Songs</h3>
       <ul className="z-10 object-cover h-[264px] w-[700px] text-white">
         {topTracks?.map((track) => (
           <li>
@@ -72,7 +73,11 @@ export function SingleArtist() {
       <h3 className="font-bold text-3xl z-20 text-white ">Albums</h3>
       <div className="flex flex-row  overflow-auto  z-10 object-cover w-[700px]">
         {albums?.map((album) => (
-          <img src={album.images[2].url} alt={album.name} />
+          <img
+            src={album.images[2].url}
+            alt={album.name}
+            onClick={() => navigate(`/album/${album.id}`)}
+          />
         ))}
       </div>
       <h3 className="relative font-bold text-3xl z-20 text-white ">Singles</h3>

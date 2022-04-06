@@ -24,15 +24,13 @@ export function UserPlaylists() {
 
   return (
     <div>
-      <h2 className="relative left-72 top-24 font-extrabold text-6xl text-white">
-        Playlists
-      </h2>{' '}
+      <h2 className="font-extrabold text-6xl text-white">Playlists</h2>
       <ul>
         {playlists.map((playlist) => (
           <li key={playlist.id}>
             <Link
               to={`/userPlaylists/${playlist.id}/${playlist.name}`}
-              className="relative left-72 top-28 text-white"
+              className="text-white"
             >
               {playlist.name}
             </Link>

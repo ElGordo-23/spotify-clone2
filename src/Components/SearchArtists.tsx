@@ -29,7 +29,7 @@ export function SearchArtists({ searchKey }: SearchArtistProps) {
 
   console.log(searchedArtists);
   return (
-    <div className=" grid grid-cols-4 gap-24 items-center bg-gray-700 text-white p-9">
+    <div className="grid grid-cols-4 gap-24 items-center bg-gray-700 text-white p-9">
       {searchedArtists.map((artist) => (
         <div key={artist?.id} className=" w-32 text-center  h-20">
           {artist?.images?.[0]?.url && (
