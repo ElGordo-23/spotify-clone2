@@ -15,6 +15,8 @@ export function SinglePlaylist() {
     getPlaylistTracks(axiosClient, playlistId),
   );
 
+  console.log(tracks);
+
   return (
     <div>
       <h2 className=" font-extrabold text-6xl text-white">{playlistName}</h2>
@@ -22,20 +24,27 @@ export function SinglePlaylist() {
       <ul className="mt-5">
         {tracks
           ? tracks.map((track) => (
-              <li className=" flex flex-col items-baseline mt-3">
-                <button
-                  className="text-white"
-                  onClick={() => setTrackUri(track.track.uri)}
-                >
-                  {track.track.name}
-                </button>
-                <Link
-                  className="text-white text-opacity-70"
-                  to={`/artist/${track.track.artists[0].id}`}
-                >
-                  {track.track.artists[0].name}
-                </Link>
-              </li>
+              <div className="grid grid-cols-2">
+                <img
+                  src={track.track.album.images[2].url}
+                  alt="Album Cover"
+                  className="h-5 w-5 object-cover"
+                />
+                <li className=" flex flex-col items-baseline mt-3">
+                  <button
+                    className="text-white"
+                    onClick={() => setTrackUri(track.track.uri)}
+                  >
+                    {track.track.name}
+                  </button>
+                  <Link
+                    className="text-white text-opacity-70"
+                    to={`/artist/${track.track.artists[0].id}`}
+                  >
+                    {track.track.artists[0].name}
+                  </Link>
+                </li>
+              </div>
             ))
           : null}
       </ul>

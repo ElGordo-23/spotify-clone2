@@ -15,6 +15,7 @@ type Tracks = {
       id: string;
       uri: string;
       artists: { name: string; id: string }[];
+      album: { images: { url: string }[] };
     };
   }[];
 };
