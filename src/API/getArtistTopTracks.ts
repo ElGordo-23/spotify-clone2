@@ -1,11 +1,12 @@
 import { Axios } from 'axios';
+import { Tracks } from '../Pages/SingleArtist';
 
 export const getArtistTopTracks = async (
   axiosClient: Axios,
   artistId: string | undefined,
 ) => {
   try {
-    const response = await axiosClient.get(
+    const response = await axiosClient.get<Tracks>(
       `https://api.spotify.com/v1/artists/${artistId}/top-tracks`,
       {
         params: { country: 'AT' },

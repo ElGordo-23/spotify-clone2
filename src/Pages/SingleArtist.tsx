@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getSingleArtist } from '../API/getArtist';
 import { getArtistAlbums } from '../API/getArtistAlbums';
@@ -6,22 +7,26 @@ import { getArtistTopTracks } from '../API/getArtistTopTracks';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
 import Player from '../Components/Player';
 
-type Artist = {
+export type Artist = {
   name: string;
   id: string;
   images: { url: string }[];
 };
 
-type AllMusic = {
-  name: string;
-  album_type: string;
-  id: string;
-  images: { url: string }[];
+export type AllMusic = {
+  items: {
+    name: string;
+    album_type: string;
+    id: string;
+    images: { url: string }[];
+  }[];
 };
 
-type Tracks = {
-  name: string;
-  uri: string;
+export type Tracks = {
+  tracks: {
+    name: string;
+    uri: string;
+  }[];
 };
 
 export function SingleArtist() {
@@ -30,27 +35,38 @@ export function SingleArtist() {
   const axiosClient = useAxiosClient();
   const navigate = useNavigate();
 
-  const [artist, setArtist] = useState<Artist>();
-  const [allMusic, setAllMusic] = useState<AllMusic[]>();
-  const [topTracks, setTopTracks] = useState<Tracks[]>();
+  // const [artist, setArtist] = useState<Artist>();
+  // const [allMusic, setAllMusic] = useState<AllMusic[]>();
+  // const [topTracks, setTopTracks] = useState<Tracks[]>();
   const [trackUri, setTrackUri] = useState<string>();
+
+  const { data: artist } = useQuery('getArtist', () =>
+    getSingleArtist(axiosClient, artistId),
+  );
+  const { data: allMusic } = useQuery('getAllMusicFromArtist', () =>
+    getArtistAlbums(axiosClient, artistId),
+  );
+
+  const { data: topTracks } = useQuery('getTopTracks', () =>
+    getArtistTopTracks(axiosClient, artistId),
+  );
 
   const singles = allMusic?.filter((albums) => albums.album_type === 'single');
   const albums = allMusic?.filter((albums) => albums.album_type === 'album');
 
-  useEffect(() => {
-    getSingleArtist(axiosClient, artistId)
-      .then((data) => setArtist(data))
-      .catch((error) => console.log(error));
+  // useEffect(() => {
+  // getSingleArtist(axiosClient, artistId)
+  //   .then((data) => setArtist(data))
+  //   .catch((error) => console.log(error));
 
-    getArtistAlbums(axiosClient, artistId)
-      .then((data) => setAllMusic(data))
-      .catch((error) => console.log(error));
+  // getArtistAlbums(axiosClient, artistId)
+  //   .then((data) => setAllMusic(data))
+  //   .catch((error) => console.log(error));
 
-    getArtistTopTracks(axiosClient, artistId)
-      .then((data) => setTopTracks(data))
-      .catch((error) => console.log(error));
-  }, [axiosClient, artistId]);
+  //   getArtistTopTracks(axiosClient, artistId)
+  //     .then((data) => setTopTracks(data))
+  //     .catch((error) => console.log(error));
+  // }, [axiosClient, artistId]);
 
   return (
     <div className="relative">
@@ -63,7 +79,7 @@ export function SingleArtist() {
         className="z-10 object-cover h-[264px] w-[700px]"
       />
       <h3 className="font-bold text-3xl z-20 text-white ">Top Songs</h3>
-      <ul className="z-10 object-cover h-[264px] w-[700px] text-white">
+      <ul className="z-10  text-white">
         {topTracks?.map((track) => (
           <li>
             <button onClick={() => setTrackUri(track.uri)}>{track.name}</button>

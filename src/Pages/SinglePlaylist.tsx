@@ -1,16 +1,19 @@
 import { createContext, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
 import { getPlaylistTracks } from '../API/getUserPlaylists';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
 import Player from '../Components/Player';
 
-type Tracks = {
-  track: {
-    name: string;
-    id: string;
-    uri: string;
-    artists: { name: string; id: string }[];
-  };
+export type Tracks = {
+  items: {
+    track: {
+      name: string;
+      id: string;
+      uri: string;
+      artists: { name: string; id: string }[];
+    };
+  }[];
 };
 
 export const trackUriContext = createContext(
@@ -21,32 +24,31 @@ export function SinglePlaylist() {
   const axiosClient = useAxiosClient();
   const { playlistId, playlistName } = useParams();
 
-  const [tracks, setTracks] = useState<Tracks[]>([]);
+  // const [tracks, setTracks] = useState<Tracks[]>([]);
 
   const [trackUri, setTrackUri] = useState<string>('');
 
-  useEffect(() => {
-    getPlaylistTracks(axiosClient, playlistId)
-      .then((data) => setTracks(data))
-      .catch((error) => console.log(error));
-  }, [axiosClient, playlistId]);
+  const { data: tracks } = useQuery('getPlaylistTracks', () =>
+    getPlaylistTracks(axiosClient, playlistId),
+  );
 
-  const storeTrackUri = (trackUri: string) => {
-    setTrackUri(trackUri);
-    window.localStorage.setItem('trackUri', trackUri);
-  };
+  // useEffect(() => {
+  //   getPlaylistTracks(axiosClient, playlistId)
+  //     .then((data) => setTracks(data))
+  //     .catch((error) => console.log(error));
+  // }, [axiosClient, playlistId]);
 
   return (
     <div>
       <h2 className=" font-extrabold text-6xl text-white">{playlistName}</h2>
 
-      <ul className="">
+      <ul className="mt-5">
         {tracks
           ? tracks.map((track) => (
               <li className=" flex flex-col items-baseline mt-3">
                 <button
                   className="text-white"
-                  onClick={() => storeTrackUri(track.track.uri)}
+                  onClick={() => setTrackUri(track.track.uri)}
                 >
                   {track.track.name}
                 </button>

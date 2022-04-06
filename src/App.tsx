@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import {
   BrowserRouter as Router,
   Outlet,
@@ -23,37 +24,42 @@ const Layout: FC = ({ children }) => (
   </div>
 );
 
+const queryClient = new QueryClient();
+
 function App() {
   const { token } = useToken();
   return (
-    <div className=" bg-slate-700 ">
-      {!token ? (
-        <Login />
-      ) : (
-        <AxiosClientProvider>
-          <Router>
-            <Routes>
-              <Route
-                element={
-                  <Layout>
-                    <Outlet />
-                  </Layout>
-                }
-              >
-                <Route path="/" element={<Home />} />
-                <Route path="/artist/:artistId" element={<SingleArtist />} />
-                <Route path="/album/:albumId" element={<SingleAlbum />} />
-                <Route path="/userProfile" element={<UserProfile />} />
-                <Route path="/userPlaylists" element={<UserPlaylists />} />
+    <div className=" bg-slate-700 min-h-screen">
+      <QueryClientProvider client={queryClient}>
+        {!token ? (
+          <Login />
+        ) : (
+          <AxiosClientProvider>
+            <Router>
+              <Routes>
                 <Route
-                  path="/userPlaylists/:playlistId/:playlistName"
-                  element={<SinglePlaylist />}
-                />
-              </Route>
-            </Routes>
-          </Router>
-        </AxiosClientProvider>
-      )}
+                  element={
+                    <Layout>
+                      <Outlet />
+                    </Layout>
+                  }
+                >
+                  <Route path="/" element={<Home />} />
+                  <Route path="/artist/:artistId" element={<SingleArtist />} />
+                  <Route path="/album/:albumId" element={<SingleAlbum />} />
+                  <Route path="/userProfile" element={<UserProfile />} />
+                  <Route path="/userPlaylists" element={<UserPlaylists />} />
+                  <Route
+                    path="/userPlaylists/:playlistId/:playlistName"
+                    element={<SinglePlaylist />}
+                  />
+                </Route>
+              </Routes>
+            </Router>
+          </AxiosClientProvider>
+        )}
+      </QueryClientProvider>
+      ,
     </div>
   );
 }

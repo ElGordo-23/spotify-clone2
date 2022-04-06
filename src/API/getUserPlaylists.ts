@@ -1,8 +1,10 @@
 import { Axios } from 'axios';
+import { Tracks } from '../Pages/SinglePlaylist';
+import { Playlist } from '../Pages/UserPlaylists';
 
 export const getUserPlaylists = async (axiosClient: Axios) => {
   try {
-    const response = await axiosClient.get(
+    const response = await axiosClient.get<Playlist>(
       'https://api.spotify.com/v1/me/playlists',
     );
     return response.data.items;
@@ -16,7 +18,7 @@ export const getPlaylistTracks = async (
   playlistId: string | undefined,
 ) => {
   try {
-    const response = await axiosClient.get(
+    const response = await axiosClient.get<Tracks>(
       `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
     );
 

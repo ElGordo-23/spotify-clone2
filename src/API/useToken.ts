@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 export const useToken = () => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
+
   useEffect(() => {
     const hash = window.location.hash;
     const token = window.localStorage.getItem('token');

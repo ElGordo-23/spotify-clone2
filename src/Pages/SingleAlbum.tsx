@@ -1,39 +1,42 @@
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAlbum } from '../API/getAlbum';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
 import Player from '../Components/Player';
 
-type Album = {
+export type Album = {
   name: string;
   artists: { id: string; name: string }[];
   images: { url: string }[];
-};
-
-type Tracks = {
-  name: string;
-  uri: string;
+  tracks: {
+    items: { name: string; uri: string }[];
+  };
 };
 
 export function SingleAlbum() {
   const { albumId } = useParams();
   const axiosClient = useAxiosClient();
   const navigate = useNavigate();
-  const [album, setAlbum] = useState<Album>();
-  const [albumTracks, setAlbumTracks] = useState<Tracks[]>();
+  // const [album, setAlbum] = useState<Album>();
+  // const [albumTracks, setAlbumTracks] = useState<Tracks[]>();
   const [trackUri, setTrackUri] = useState<string | undefined>();
 
-  useEffect(() => {
-    getAlbum(axiosClient, albumId)
-      .then((data) => setAlbum(data))
-      .catch((error) => console.log(error));
+  const { data: album } = useQuery('getAlbum', () =>
+    getAlbum(axiosClient, albumId),
+  );
 
-    getAlbum(axiosClient, albumId)
-      .then((data) => setAlbumTracks(data.tracks.items))
-      .catch((error) => console.log(error));
-  }, [axiosClient, albumId]);
+  // const {data.tracks.items: albumTracks} = useQuery('getAlbumTracks', ()=>getAlbum(axiosClient, albumId))
 
-  console.log(albumTracks);
+  // useEffect(() => {
+  //   getAlbum(axiosClient, albumId)
+  //     .then((data) => setAlbum(data))
+  //     .catch((error) => console.log(error));
+
+  //   getAlbum(axiosClient, albumId)
+  //     .then((data) => setAlbumTracks(data.tracks.items))
+  //     .catch((error) => console.log(error));
+  // }, [axiosClient, albumId]);
 
   return (
     <div className="relative">
@@ -52,7 +55,7 @@ export function SingleAlbum() {
         {album?.artists[0].name}
       </button>
       <ul className="z-10 h-[264px] w-[700px] text-white">
-        {albumTracks?.map((track) => (
+        {album?.tracks?.items.map((track) => (
           <li>
             <button onClick={() => setTrackUri(track.uri)}>{track.name}</button>
           </li>
