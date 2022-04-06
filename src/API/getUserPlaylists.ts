@@ -1,6 +1,23 @@
 import { Axios } from 'axios';
-import { Tracks } from '../Pages/SinglePlaylist';
-import { Playlist } from '../Pages/UserPlaylists';
+
+type Playlist = {
+  name: string;
+
+  images: { url: string }[];
+  items: { name: string; tracks: {}; id: string }[];
+  tracks: { href: string };
+};
+
+type Tracks = {
+  items: {
+    track: {
+      name: string;
+      id: string;
+      uri: string;
+      artists: { name: string; id: string }[];
+    };
+  }[];
+};
 
 export const getUserPlaylists = async (axiosClient: Axios) => {
   try {

@@ -1,16 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { getUserPlaylists } from '../API/getUserPlaylists';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
-
-export type Playlist = {
-  name: string;
-
-  images: { url: string }[];
-  items: { name: string; tracks: {}; id: string }[];
-  tracks: { href: string };
-};
 
 export function UserPlaylists() {
   const axiosClient = useAxiosClient();

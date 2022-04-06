@@ -1,5 +1,10 @@
 import { Axios } from 'axios';
-import { Artist } from '../Pages/SingleArtist';
+
+type Artist = {
+  name: string;
+  id: string;
+  images: { url: string }[];
+};
 
 export const getSingleArtist = async (
   axiosClient: Axios,

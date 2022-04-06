@@ -1,5 +1,13 @@
 import { Axios } from 'axios';
-import { Album } from '../Pages/SingleAlbum';
+
+type Album = {
+  name: string;
+  artists: { id: string; name: string }[];
+  images: { url: string }[];
+  tracks: {
+    items: { name: string; uri: string }[];
+  };
+};
 
 export const getAlbum = async (
   axiosClient: Axios,

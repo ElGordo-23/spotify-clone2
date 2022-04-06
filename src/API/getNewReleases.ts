@@ -1,5 +1,14 @@
 import { Axios } from 'axios';
-import { Releases } from '../Components/NewReleases';
+
+type Releases = {
+  albums: {
+    id: string;
+    name: string;
+    images: { url: string }[];
+    artists: { id: string; name: string }[];
+    items: [];
+  };
+};
 
 export const getNewReleases = async (
   axiosClient: Axios,

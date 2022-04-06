@@ -1,18 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { getNewReleases } from '../API/getNewReleases';
 import { useAxiosClient } from './AxiosClientProvider';
-
-export type Releases = {
-  albums: {
-    id: string;
-    name: string;
-    images: { url: string }[];
-    artists: { id: string; name: string }[];
-    items: [];
-  };
-};
 
 type Release = {
   id: string;
@@ -22,7 +12,6 @@ type Release = {
 };
 
 export function NewReleases() {
-  // const [releases, setNewReleases] = useState<Release[]>([]);
   const axiosClient = useAxiosClient();
   const [displayAmount, setDisplayAmount] = useState<number>(16);
 
@@ -33,12 +22,6 @@ export function NewReleases() {
   console.log(releases);
 
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   getNewReleases(axiosClient, displayAmount)
-  //     .then((data) => setNewReleases(data?.albums?.items || []))
-  //     .catch((error) => console.log(error));
-  // }, [axiosClient, displayAmount]);
 
   return (
     <div className=" grid grid-cols-4 gap-24 items-center bg-gray-700 text-white p-9">

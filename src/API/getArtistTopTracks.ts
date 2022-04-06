@@ -1,5 +1,11 @@
 import { Axios } from 'axios';
-import { Tracks } from '../Pages/SingleArtist';
+
+type Tracks = {
+  tracks: {
+    name: string;
+    uri: string;
+  }[];
+};
 
 export const getArtistTopTracks = async (
   axiosClient: Axios,

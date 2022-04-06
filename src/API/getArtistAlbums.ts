@@ -1,5 +1,13 @@
 import { Axios } from 'axios';
-import { AllMusic } from '../Pages/SingleArtist';
+
+type AllMusic = {
+  items: {
+    name: string;
+    album_type: string;
+    id: string;
+    images: { url: string }[];
+  }[];
+};
 
 export const getArtistAlbums = async (
   axiosClient: Axios,

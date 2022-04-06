@@ -1,42 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getAlbum } from '../API/getAlbum';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
 import Player from '../Components/Player';
 
-export type Album = {
-  name: string;
-  artists: { id: string; name: string }[];
-  images: { url: string }[];
-  tracks: {
-    items: { name: string; uri: string }[];
-  };
-};
-
 export function SingleAlbum() {
   const { albumId } = useParams();
   const axiosClient = useAxiosClient();
   const navigate = useNavigate();
-  // const [album, setAlbum] = useState<Album>();
-  // const [albumTracks, setAlbumTracks] = useState<Tracks[]>();
+
   const [trackUri, setTrackUri] = useState<string | undefined>();
 
   const { data: album } = useQuery('getAlbum', () =>
     getAlbum(axiosClient, albumId),
   );
-
-  // const {data.tracks.items: albumTracks} = useQuery('getAlbumTracks', ()=>getAlbum(axiosClient, albumId))
-
-  // useEffect(() => {
-  //   getAlbum(axiosClient, albumId)
-  //     .then((data) => setAlbum(data))
-  //     .catch((error) => console.log(error));
-
-  //   getAlbum(axiosClient, albumId)
-  //     .then((data) => setAlbumTracks(data.tracks.items))
-  //     .catch((error) => console.log(error));
-  // }, [axiosClient, albumId]);
 
   return (
     <div className="relative">
