@@ -30,6 +30,8 @@ export function SingleArtist() {
   const singles = allMusic?.filter((albums) => albums.album_type === 'single');
   const albums = allMusic?.filter((albums) => albums.album_type === 'album');
 
+  console.log(topTracks);
+
   return (
     <div className="relative">
       <h2 className="absolute left-4 top-48 font-extrabold text-6xl z-20 text-white ">
@@ -41,21 +43,45 @@ export function SingleArtist() {
         className="z-10 object-cover h-[264px] w-[700px]"
       />
       <h3 className="font-bold text-3xl z-20 text-white ">Top Songs</h3>
-      <ul className="z-10  text-white">
-        {topTracks?.map((track) => (
-          <li>
-            <button onClick={() => setTrackUri(track.uri)}>{track.name}</button>
-          </li>
-        ))}
-      </ul>
+      <br />
+      <ol className="z-10 text-white list-decimal">
+        {topTracks?.map((track) => {
+          let songDuration: string;
+          songDuration = `${(track.duration_ms / 60000).toFixed(2)}`;
+          songDuration = songDuration.replace(/\./g, ':');
+
+          return (
+            <div className="grid grid-cols-2">
+              <li className="flex gap-2">
+                <img
+                  src={track.album.images[2].url}
+                  alt="Album Cover"
+                  className="h-5 w-5 object-cover"
+                />
+                <br />
+                <button onClick={() => setTrackUri(track.uri)}>
+                  {track.name}
+                </button>
+              </li>{' '}
+              <span>{songDuration}</span>
+            </div>
+          );
+        })}
+      </ol>
+      <br />
       <h3 className="font-bold text-3xl z-20 text-white ">Albums</h3>
-      <div className="flex flex-row overflow-auto  z-10 object-cover w-[700px]">
+      <br />
+      <div className="grid grid-cols-4 overflow-hidden hover:overflow-auto object-cover h-[200px] w-[700px] gap-4 ">
         {albums?.map((album) => (
-          <img
-            src={album.images[2].url}
-            alt={album.name}
-            onClick={() => navigate(`/album/${album.id}`)}
-          />
+          <div className="flex text-white text-opacity-60 justify-between overflow-hidden h-16 ">
+            <img
+              src={album.images[2].url}
+              alt={album.name}
+              onClick={() => navigate(`/album/${album.id}`)}
+              className="w-16 h-16"
+            />
+            <p className="overflow-hidden">{album.name}</p>
+          </div>
         ))}
       </div>
       <h3 className="relative font-bold text-3xl z-20 text-white ">Singles</h3>

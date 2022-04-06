@@ -4,6 +4,10 @@ type Tracks = {
   tracks: {
     name: string;
     uri: string;
+    duration_ms: number;
+    album: {
+      images: { url: string }[];
+    };
   }[];
 };
 
