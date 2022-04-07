@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import {
   BrowserRouter as Router,
   Outlet,
@@ -8,9 +9,9 @@ import {
 } from 'react-router-dom';
 import { useToken } from './API/useToken';
 import { AxiosClientProvider } from './Components/AxiosClientProvider';
-import { Home } from './Components/Home';
 import { Login } from './Components/login';
 import { Sidebar } from './Components/Sidebar';
+import { Home } from './Pages/Home';
 import { SingleAlbum } from './Pages/SingleAlbum';
 import { SingleArtist } from './Pages/SingleArtist';
 import { SinglePlaylist } from './Pages/SinglePlaylist';
@@ -56,6 +57,7 @@ function App() {
                 </Route>
               </Routes>
             </Router>
+            <ReactQueryDevtools />
           </AxiosClientProvider>
         )}
       </QueryClientProvider>

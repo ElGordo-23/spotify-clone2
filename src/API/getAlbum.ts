@@ -4,8 +4,9 @@ type Album = {
   name: string;
   artists: { id: string; name: string }[];
   images: { url: string }[];
+
   tracks: {
-    items: { name: string; uri: string }[];
+    items: { name: string; uri: string; duration_ms: number }[];
   };
 };
 

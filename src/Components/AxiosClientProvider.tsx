@@ -22,7 +22,7 @@ export const AxiosClientProvider: FC = ({ children }) => {
 
   return (
     <AxiosClientContext.Provider value={configuredAxios}>
-      {children}
+      {token && children}
     </AxiosClientContext.Provider>
   );
 };

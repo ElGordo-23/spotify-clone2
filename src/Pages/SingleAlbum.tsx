@@ -33,16 +33,35 @@ export function SingleAlbum() {
         {album?.artists[0].name}
       </button>
       <br />
-      <ul className="z-10 h-[264px] w-[700px] text-white hover:overflow-auto">
-        {album?.tracks?.items.map((track) => (
-          <li>
-            <button onClick={() => setTrackUri(track.uri)}>{track.name}</button>
-          </li>
-        ))}
+      <ul className="z-10 h-[264px] w-[700px] text-white overflow-hidden hover:overflow-auto">
+        {album?.tracks?.items.map((track) => {
+          let songDuration: string;
+          songDuration = `${(track.duration_ms / 60000).toFixed(2)}`;
+          songDuration = songDuration.replace(/\./g, ':');
+          return (
+            <li>
+              <div className="grid grid-cols-2">
+                <li className="flex gap-2">
+                  <img
+                    src={album.images[2].url}
+                    alt="Album Cover"
+                    className="h-5 w-5 object-cover"
+                  />
+                  <br />
+                  <button onClick={() => setTrackUri(track.uri)}>
+                    {track.name}
+                  </button>
+                </li>{' '}
+                <span>{songDuration}</span>
+              </div>
+            </li>
+          );
+        })}
       </ul>
       <br />
-
-      <Player trackUri={trackUri} />
+      <div>
+        <Player trackUri={trackUri} />
+      </div>
     </div>
   );
 }
