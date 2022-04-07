@@ -61,7 +61,6 @@ function App() {
           </AxiosClientProvider>
         )}
       </QueryClientProvider>
-      ,
     </div>
   );
 }

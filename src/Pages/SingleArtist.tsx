@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useArtist } from '../API/getArtist';
 import { useAllArtistMusic } from '../API/getArtistAlbums';
 import { useArtistTopTracks } from '../API/getArtistTopTracks';
+import { PlaylistSelector } from '../Components/Menu';
 import Player from '../Components/Player';
 
 export function SingleArtist() {
@@ -46,20 +47,26 @@ export function SingleArtist() {
           songDuration = songDuration.replace(/\./g, ':');
 
           return (
-            <ol className="grid grid-cols-2 list-decimal hover:bg-gray-500 rounded">
-              <li className="flex gap-2  mt-1">
-                <img
-                  src={track.album.images[2].url}
-                  alt="Album Cover"
-                  className="h-6 w-6 object-cover"
-                />
-                <br />
-                <button onClick={() => setTrackUri(track.uri)}>
-                  {track.name}
-                </button>
-              </li>{' '}
+            <div className="flex justify-between hover:bg-gray-500 rounded">
+              <ol className="grid grid-cols-2 list-decimal">
+                <li className="flex gap-2  mt-1">
+                  <img
+                    src={track.album.images[2].url}
+                    alt="Album Cover"
+                    className="h-6 w-6 object-cover"
+                  />
+                  <br />
+                  <button onClick={() => setTrackUri(track.uri)}>
+                    {track.name}
+                  </button>{' '}
+                  <div>
+                    <PlaylistSelector />
+                  </div>
+                </li>
+              </ol>
+
               <span className="mt-1">{songDuration}</span>
-            </ol>
+            </div>
           );
         })}
       </div>
