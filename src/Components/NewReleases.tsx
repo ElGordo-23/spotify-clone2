@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
-import { getNewReleases } from '../API/getNewReleases';
-import { useAxiosClient } from './AxiosClientProvider';
+import { useNewReleases } from '../API/getNewReleases';
 
 type Release = {
   id: string;
@@ -12,12 +10,9 @@ type Release = {
 };
 
 export function NewReleases() {
-  const axiosClient = useAxiosClient();
   const [displayAmount, setDisplayAmount] = useState<number>(16);
 
-  const { data: releases, refetch } = useQuery('newReleases', () =>
-    getNewReleases(axiosClient, displayAmount),
-  );
+  const { data: releases, refetch } = useNewReleases(displayAmount);
 
   const navigate = useNavigate();
 

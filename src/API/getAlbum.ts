@@ -1,4 +1,6 @@
 import { Axios } from 'axios';
+import { useQuery } from 'react-query';
+import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type Album = {
   name: string;
@@ -23,3 +25,9 @@ export const getAlbum = async (
     console.log(error);
   }
 };
+
+export function useSingleAlbum(albumId: string | undefined) {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('albumKey', () => getAlbum(axiosClient, albumId));
+}

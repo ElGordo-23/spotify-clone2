@@ -1,10 +1,18 @@
 import { Axios } from 'axios';
+import { useQuery } from 'react-query';
+import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type Artist = {
   name: string;
   id: string;
   images: { url: string }[];
 };
+
+export function useArtist(artistId: string | undefined) {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('artistKey', () => getSingleArtist(axiosClient, artistId));
+}
 
 export const getSingleArtist = async (
   axiosClient: Axios,

@@ -1,4 +1,6 @@
 import { Axios } from 'axios';
+import { useQuery } from 'react-query';
+import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type Tracks = {
   tracks: {
@@ -27,3 +29,11 @@ export const getArtistTopTracks = async (
     console.log(error);
   }
 };
+
+export function useArtistTopTracks(artistId: string | undefined) {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('topTracksKey', () =>
+    getArtistTopTracks(axiosClient, artistId),
+  );
+}

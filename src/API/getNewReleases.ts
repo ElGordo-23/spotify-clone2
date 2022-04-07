@@ -1,4 +1,6 @@
 import { Axios } from 'axios';
+import { useQuery } from 'react-query';
+import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type Releases = {
   albums: {
@@ -26,3 +28,11 @@ export const getNewReleases = async (
     console.log(error);
   }
 };
+
+export function useNewReleases(displayAmount: number) {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('newReleases', () =>
+    getNewReleases(axiosClient, displayAmount),
+  );
+}

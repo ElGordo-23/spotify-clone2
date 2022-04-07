@@ -1,19 +1,14 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
-import { getPlaylistTracks } from '../API/getUserPlaylists';
-import { useAxiosClient } from '../Components/AxiosClientProvider';
+import { usePlaylistTracks } from '../API/getUserPlaylists';
 import Player from '../Components/Player';
 
 export function SinglePlaylist() {
-  const axiosClient = useAxiosClient();
   const { playlistId, playlistName } = useParams();
 
   const [trackUri, setTrackUri] = useState<string>('');
 
-  const { data: tracks } = useQuery('getPlaylistTracks', () =>
-    getPlaylistTracks(axiosClient, playlistId),
-  );
+  const { data: tracks } = usePlaylistTracks(playlistId);
 
   return (
     <div className="ml-4 mt-4">

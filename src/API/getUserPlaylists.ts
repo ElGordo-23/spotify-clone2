@@ -1,4 +1,6 @@
 import { Axios } from 'axios';
+import { useQuery } from 'react-query';
+import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type Playlist = {
   name: string;
@@ -45,3 +47,17 @@ export const getPlaylistTracks = async (
     console.log(error);
   }
 };
+
+export function useUserPlaylists() {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('playlistId', () => getUserPlaylists(axiosClient));
+}
+
+export function usePlaylistTracks(playlistId: string | undefined) {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('playlistId', () =>
+    getPlaylistTracks(axiosClient, playlistId),
+  );
+}

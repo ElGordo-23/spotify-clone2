@@ -1,20 +1,15 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAlbum } from '../API/getAlbum';
-import { useAxiosClient } from '../Components/AxiosClientProvider';
+import { useSingleAlbum } from '../API/getAlbum';
 import Player from '../Components/Player';
 
 export function SingleAlbum() {
   const { albumId } = useParams();
-  const axiosClient = useAxiosClient();
   const navigate = useNavigate();
 
   const [trackUri, setTrackUri] = useState<string | undefined>();
 
-  const { data: album } = useQuery('getAlbum', () =>
-    getAlbum(axiosClient, albumId),
-  );
+  const { data: album } = useSingleAlbum(albumId);
 
   return (
     <div className="relative">

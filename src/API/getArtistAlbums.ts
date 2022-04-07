@@ -1,4 +1,6 @@
 import { Axios } from 'axios';
+import { useQuery } from 'react-query';
+import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type AllMusic = {
   items: {
@@ -22,3 +24,9 @@ export const getArtistAlbums = async (
     console.log(error);
   }
 };
+
+export function useAllArtistMusic(artistId: string | undefined) {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('allMusicKey', () => getArtistAlbums(axiosClient, artistId));
+}

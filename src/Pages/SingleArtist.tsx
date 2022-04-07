@@ -1,36 +1,22 @@
 import { useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getSingleArtist } from '../API/getArtist';
-import { getArtistAlbums } from '../API/getArtistAlbums';
-import { getArtistTopTracks } from '../API/getArtistTopTracks';
-import { useAxiosClient } from '../Components/AxiosClientProvider';
+import { useArtist } from '../API/getArtist';
+import { useAllArtistMusic } from '../API/getArtistAlbums';
+import { useArtistTopTracks } from '../API/getArtistTopTracks';
 import Player from '../Components/Player';
-import { generateQueryKeys } from '../util/QueryKeysGenerator';
 
 export function SingleArtist() {
   const { artistId } = useParams();
-
-  const axiosClient = useAxiosClient();
 
   const navigate = useNavigate();
 
   const [trackUri, setTrackUri] = useState<string>();
 
-  const artistQueryKey = generateQueryKeys('artist');
+  const { data: artist } = useArtist(artistId);
 
-  const allMusicQueryKey = generateQueryKeys('allMusic');
+  const { data: allMusic } = useAllArtistMusic(artistId);
 
-  const { data: artist } = useQuery(artistQueryKey.details(), () =>
-    getSingleArtist(axiosClient, artistId),
-  );
-  const { data: allMusic } = useQuery(allMusicQueryKey.details(), () =>
-    getArtistAlbums(axiosClient, artistId),
-  );
-
-  const { data: topTracks } = useQuery('getTopTracks', () =>
-    getArtistTopTracks(axiosClient, artistId),
-  );
+  const { data: topTracks } = useArtistTopTracks(artistId);
 
   const singles = useMemo(
     () => allMusic?.filter((albums) => albums.album_type === 'single'),
