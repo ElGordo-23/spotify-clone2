@@ -70,7 +70,7 @@ export const addTrackToPlaylist = async (
 export function useUserPlaylists() {
   const axiosClient = useAxiosClient();
 
-  return useQuery('playlistId', () => getUserPlaylists(axiosClient));
+  return useQuery('allUserPlaylists', () => getUserPlaylists(axiosClient));
 }
 
 export function usePlaylistTracks(playlistId: string | undefined) {
@@ -81,25 +81,26 @@ export function usePlaylistTracks(playlistId: string | undefined) {
   );
 }
 
-export const useAddTrackToPlaylist = (
-  playlistId: string | undefined,
-  trackUri: string | undefined,
-) => {
+export const useAddTrackToPlaylist = () => {
   const axiosClient = useAxiosClient();
   const queryClient = useQueryClient();
 
-  return useMutation(
-    () => {
+  return useMutation<
+    unknown,
+    unknown,
+    { playlistId: string; trackUri: string }
+  >(
+    ({ playlistId, trackUri }) => {
       const response = axiosClient.post(
         `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-        { data: { uris: [trackUri], position: 0 } },
+        { uris: [trackUri], position: 0 },
       );
 
       return response;
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('playlistTracks');
+        queryClient.invalidateQueries('allUserPlaylists');
       },
     },
   );

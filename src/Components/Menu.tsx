@@ -30,7 +30,7 @@ export function PlaylistSelector({ trackUri }: TrackUri) {
               {({ active }) => (
                 <button
                   className={`${active && 'bg-blue-500'}`}
-                  onClick={() => mutate({ trackUri: trackUri })}
+                  onClick={() => mutate({ playlistId: playlist.id, trackUri })}
                 >
                   {playlist.name}
                 </button>

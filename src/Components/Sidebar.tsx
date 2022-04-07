@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useToken } from '../API/useToken';
 import { AxiosClientProvider } from './AxiosClientProvider';
+import Player from './Player';
 
 export function Sidebar() {
   const { logout } = useToken();
@@ -34,7 +35,6 @@ export function Sidebar() {
                 <span className="flex-1 ml-3 whitespace-nowrap">Playlists</span>
               </Link>
             </li>
-
             <li>
               <Link
                 to="/"
@@ -43,26 +43,24 @@ export function Sidebar() {
                 <span className="flex-1 ml-3 whitespace-nowrap">Library</span>
               </Link>
             </li>
-
-            <AxiosClientProvider>
-              <li>
-                <a
-                  href="/"
-                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+            <li>
+              <a
+                href="/"
+                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                <button
+                  onClick={() => {
+                    logout();
+                  }}
+                  className="flex-1 ml-3 whitespace-nowrap"
                 >
-                  <button
-                    onClick={() => {
-                      logout();
-                    }}
-                    className="flex-1 ml-3 whitespace-nowrap"
-                  >
-                    Sign Out
-                  </button>
-                </a>
-              </li>
-            </AxiosClientProvider>
+                  Sign Out
+                </button>
+              </a>
+            </li>{' '}
           </ul>
         </div>
+        <Player />
       </aside>
     </div>
   );

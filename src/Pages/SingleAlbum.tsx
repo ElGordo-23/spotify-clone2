@@ -1,14 +1,12 @@
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSingleAlbum } from '../API/getAlbum';
-import Player from '../Components/Player';
+import { usePlayerControls } from '../Components/PlayerControlsProvider';
 
 export function SingleAlbum() {
   const { albumId } = useParams();
   const navigate = useNavigate();
 
-  const [trackUri, setTrackUri] = useState<string | undefined>();
-
+  const { setTrackUri } = usePlayerControls();
   const { data: album } = useSingleAlbum(albumId);
 
   return (
@@ -54,9 +52,7 @@ export function SingleAlbum() {
         })}
       </ul>
       <br />
-      <div>
-        <Player trackUri={trackUri} />
-      </div>
+      <div></div>
     </div>
   );
 }

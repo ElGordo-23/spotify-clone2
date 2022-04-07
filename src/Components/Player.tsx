@@ -1,24 +1,18 @@
-import { useEffect, useState } from 'react';
 import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 import { useToken } from '../API/useToken';
+import { usePlayerControls } from './PlayerControlsProvider';
 
-type PlayerProps = {
-  trackUri: string | undefined;
-};
-
-export default function Player({ trackUri }: PlayerProps) {
+export default function Player() {
   const { token } = useToken();
-  const [play, setPlay] = useState(false);
-
-  useEffect(() => setPlay(true), [trackUri]);
+  const { trackUri, setTrackUri } = usePlayerControls();
 
   return token ? (
     <SpotifyWebPlayer
       token={token}
       showSaveIcon
-      play={play}
+      play={!!trackUri}
       callback={(state) => {
-        if (!state.isPlaying) setPlay(false);
+        if (!state.isPlaying) setTrackUri(null);
       }}
       uris={trackUri ? [trackUri] : []}
     />

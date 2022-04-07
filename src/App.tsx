@@ -10,6 +10,7 @@ import {
 import { useToken } from './API/useToken';
 import { AxiosClientProvider } from './Components/AxiosClientProvider';
 import { Login } from './Components/login';
+import { PlayerControlsProvider } from './Components/PlayerControlsProvider';
 import { Sidebar } from './Components/Sidebar';
 import { Home } from './Pages/Home';
 import { SingleAlbum } from './Pages/SingleAlbum';
@@ -36,28 +37,33 @@ function App() {
           <Login />
         ) : (
           <AxiosClientProvider>
-            <Router>
-              <Routes>
-                <Route
-                  element={
-                    <Layout>
-                      <Outlet />
-                    </Layout>
-                  }
-                >
-                  <Route path="/" element={<Home />} />
-                  <Route path="/artist/:artistId" element={<SingleArtist />} />
-                  <Route path="/album/:albumId" element={<SingleAlbum />} />
-                  <Route path="/userProfile" element={<UserProfile />} />
-                  <Route path="/userPlaylists" element={<UserPlaylists />} />
+            <PlayerControlsProvider>
+              <Router>
+                <Routes>
                   <Route
-                    path="/userPlaylists/:playlistId/:playlistName"
-                    element={<SinglePlaylist />}
-                  />
-                </Route>
-              </Routes>
-            </Router>
-            <ReactQueryDevtools />
+                    element={
+                      <Layout>
+                        <Outlet />
+                      </Layout>
+                    }
+                  >
+                    <Route path="/" element={<Home />} />
+                    <Route
+                      path="/artist/:artistId"
+                      element={<SingleArtist />}
+                    />
+                    <Route path="/album/:albumId" element={<SingleAlbum />} />
+                    <Route path="/userProfile" element={<UserProfile />} />
+                    <Route path="/userPlaylists" element={<UserPlaylists />} />
+                    <Route
+                      path="/userPlaylists/:playlistId/:playlistName"
+                      element={<SinglePlaylist />}
+                    />
+                  </Route>
+                </Routes>
+              </Router>
+              <ReactQueryDevtools />
+            </PlayerControlsProvider>
           </AxiosClientProvider>
         )}
       </QueryClientProvider>

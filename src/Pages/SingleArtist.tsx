@@ -58,9 +58,9 @@ export function SingleArtist() {
                   <br />
                   <button onClick={() => setTrackUri(track.uri)}>
                     {track.name}
-                  </button>{' '}
+                  </button>
                   <div>
-                    <PlaylistSelector />
+                    <PlaylistSelector trackUri={track.uri} />
                   </div>
                 </li>
               </ol>
@@ -111,7 +111,6 @@ export function SingleArtist() {
         ))}
       </div>
       <br />
-      <Player trackUri={trackUri} />
     </div>
   );
 }

@@ -43,7 +43,6 @@ export function SinglePlaylist() {
       </ul>
 
       <br />
-      <Player trackUri={trackUri} />
     </div>
   );
 }
