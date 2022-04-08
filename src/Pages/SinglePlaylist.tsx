@@ -1,17 +1,34 @@
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { usePlaylistTracks } from '../API/getUserPlaylists';
+import Player from '../Components/Player';
 import { usePlayerControls } from '../Components/PlayerControlsProvider';
 
 export function SinglePlaylist() {
   const { playlistId, playlistName } = useParams();
 
-  const { setTrackUri } = usePlayerControls();
+  const { setTrackUri, songQueue } = usePlayerControls();
 
   const { data: tracks } = usePlaylistTracks(playlistId);
+
+  const getAllUris = () => {
+    const allUris: string[] = [];
+    tracks?.map((track) => allUris.push(track.track.uri));
+    return allUris;
+  };
+
+  const [allPlaylistUris, setAllPlaylistUris] = useState<string[]>();
 
   return (
     <div className="ml-4 mt-4">
       <h2 className=" font-extrabold text-6xl text-white">{playlistName}</h2>
+      <button
+        onClick={() => {
+          setAllPlaylistUris(getAllUris());
+        }}
+      >
+        Play
+      </button>
 
       <ul className="mt-5">
         {tracks
@@ -42,6 +59,7 @@ export function SinglePlaylist() {
       </ul>
 
       <br />
+      <Player list={allPlaylistUris} />
     </div>
   );
 }

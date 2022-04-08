@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getUserProfile } from '../API/getUserProfile';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
+import Example from '../Components/Testtest';
 
 type User = {
   display_name: string;
@@ -18,8 +19,6 @@ export function UserProfile() {
       .catch((error) => console.log(error));
   }, [axiosClient]);
 
-  console.log(user);
-
   return (
     <div>
       {user ? (
@@ -27,6 +26,7 @@ export function UserProfile() {
           {user.display_name}
         </h2>
       ) : null}
+      <Example />
     </div>
   );
 }

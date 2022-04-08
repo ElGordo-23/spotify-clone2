@@ -59,7 +59,7 @@ export function Sidebar() {
             </li>{' '}
           </ul>
         </div>
-        <Player />
+        {/* <Player /> */}
       </aside>
     </div>
   );

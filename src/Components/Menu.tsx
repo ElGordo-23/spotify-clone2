@@ -1,4 +1,5 @@
-import { Menu, Transition } from '@headlessui/react';
+import { Popover, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 import {
   useAddTrackToPlaylist,
   useUserPlaylists,
@@ -12,42 +13,54 @@ type DropDownProps = {
 export function PlaylistSelector({ trackUri, songQueue }: DropDownProps) {
   const { data: playlist } = useUserPlaylists();
 
-  console.log(songQueue);
-
   const { mutate } = useAddTrackToPlaylist();
   return (
-    <Menu>
-      <Menu.Button>+</Menu.Button>
-      <Transition
-        enter="transition duration-100 ease-out"
-        enterFrom="transform scale-95 opacity-0"
-        enterTo="transform scale-100 opacity-100"
-        leave="transition duration-75 ease-out"
-        leaveFrom="transform scale-100 opacity-100"
-        leaveTo="transform scale-95 opacity-0"
-      >
-        <Menu.Items className="flex flex-col ">
-          {playlist?.items.map((playlist) => (
-            <Menu.Item>
-              {({ active }) => (
-                <>
+    <Popover className="relative ">
+      {({ open }) => (
+        <>
+          <Popover.Button>
+            <span>+</span>
+          </Popover.Button>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-200"
+            enterFrom="opacity-0 translate-y-1"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease-in duration-150"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-1"
+          >
+            <Popover.Panel className="absolute z-10 ">
+              <div className=" rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ">
+                <div className="p-4 bg-slate-600 text-white flex flex-col w-64 h-64 overflow-auto items-baseline">
+                  {' '}
                   <button
-                    className={`${active && 'bg-blue-500'}`}
-                    onClick={() =>
-                      mutate({ playlistId: playlist.id, trackUri })
-                    }
+                    className="hover:bg-gray-500 rounded"
+                    onClick={() => songQueue.push(trackUri)}
                   >
-                    {playlist.name}
-                  </button>{' '}
-                  <button onClick={() => songQueue.push(trackUri)}>
                     Add To Queue
                   </button>
-                </>
-              )}
-            </Menu.Item>
-          ))}
-        </Menu.Items>
-      </Transition>
-    </Menu>
+                  {playlist?.items.map((playlist) => (
+                    <ul>
+                      <li>
+                        <button
+                          className="hover:bg-gray-500 rounded"
+                          onClick={() =>
+                            mutate({ playlistId: playlist.id, trackUri })
+                          }
+                        >
+                          {playlist.name}
+                        </button>
+                      </li>
+                    </ul>
+                  ))}
+                </div>
+                <br />
+              </div>
+            </Popover.Panel>
+          </Transition>
+        </>
+      )}
+    </Popover>
   );
 }

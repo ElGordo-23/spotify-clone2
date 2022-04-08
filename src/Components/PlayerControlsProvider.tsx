@@ -8,7 +8,7 @@ const PlayerControlsContext = createContext<{
 
 export const PlayerControlsProvider: FC = ({ children }) => {
   const [trackUri, setTrackUri] = useState(null);
-  const songQueue = ['spotify:track:6yz7M1DItRFo8ATGeLoM9y'];
+  const songQueue = [''];
 
   return (
     <PlayerControlsContext.Provider

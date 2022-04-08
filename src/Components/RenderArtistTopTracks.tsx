@@ -18,7 +18,7 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
         songDuration = songDuration.replace(/\./g, ':');
 
         return (
-          <div className="flex justify-between hover:bg-gray-500 rounded">
+          <div className="flex justify-between hover:bg-gray-500 rounded z-0">
             <ol className="grid grid-cols-2 list-decimal">
               <li className="flex gap-2  mt-1">
                 <img
@@ -38,7 +38,6 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
                 </div>
               </li>
             </ol>
-
             <span className="mt-1">{songDuration}</span>
           </div>
         );
