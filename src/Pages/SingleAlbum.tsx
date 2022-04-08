@@ -34,14 +34,17 @@ export function SingleAlbum() {
           return (
             <li>
               <div className="grid grid-cols-2">
-                <li className="flex gap-2">
+                <li className="flex gap-2 ">
                   <img
                     src={album.images[2].url}
                     alt="Album Cover"
                     className="h-5 w-5 object-cover"
                   />
                   <br />
-                  <button onClick={() => setTrackUri(track.uri)}>
+                  <button
+                    onClick={() => setTrackUri(track.uri)}
+                    className="hover:bg-gray-500 rounded"
+                  >
                     {track.name}
                   </button>
                 </li>{' '}

@@ -1,12 +1,11 @@
-import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { usePlaylistTracks } from '../API/getUserPlaylists';
-import Player from '../Components/Player';
+import { usePlayerControls } from '../Components/PlayerControlsProvider';
 
 export function SinglePlaylist() {
   const { playlistId, playlistName } = useParams();
 
-  const [trackUri, setTrackUri] = useState<string>('');
+  const { setTrackUri } = usePlayerControls();
 
   const { data: tracks } = usePlaylistTracks(playlistId);
 
@@ -17,7 +16,7 @@ export function SinglePlaylist() {
       <ul className="mt-5">
         {tracks
           ? tracks.map((track) => (
-              <li className="flex gap-2">
+              <li className="flex gap-2" key={track.track.id}>
                 <img
                   src={track.track.album.images[2].url}
                   alt="Album Cover"

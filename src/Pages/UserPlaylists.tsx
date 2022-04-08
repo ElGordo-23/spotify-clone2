@@ -3,7 +3,6 @@ import { useUserPlaylists } from '../API/getUserPlaylists';
 
 export function UserPlaylists() {
   const { data: playlists } = useUserPlaylists();
-  console.log(playlists);
 
   return (
     <div className="flex flex-col items-center">

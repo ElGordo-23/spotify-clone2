@@ -4,15 +4,17 @@ import {
   useUserPlaylists,
 } from '../API/getUserPlaylists';
 
-type TrackUri = {
+type DropDownProps = {
   trackUri: string;
+  songQueue: string[];
 };
 
-export function PlaylistSelector({ trackUri }: TrackUri) {
+export function PlaylistSelector({ trackUri, songQueue }: DropDownProps) {
   const { data: playlist } = useUserPlaylists();
 
-  const { mutate } = useAddTrackToPlaylist();
+  console.log(songQueue);
 
+  const { mutate } = useAddTrackToPlaylist();
   return (
     <Menu>
       <Menu.Button>+</Menu.Button>
@@ -24,16 +26,23 @@ export function PlaylistSelector({ trackUri }: TrackUri) {
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Menu.Items className="flex flex-col">
+        <Menu.Items className="flex flex-col ">
           {playlist?.items.map((playlist) => (
             <Menu.Item>
               {({ active }) => (
-                <button
-                  className={`${active && 'bg-blue-500'}`}
-                  onClick={() => mutate({ playlistId: playlist.id, trackUri })}
-                >
-                  {playlist.name}
-                </button>
+                <>
+                  <button
+                    className={`${active && 'bg-blue-500'}`}
+                    onClick={() =>
+                      mutate({ playlistId: playlist.id, trackUri })
+                    }
+                  >
+                    {playlist.name}
+                  </button>{' '}
+                  <button onClick={() => songQueue.push(trackUri)}>
+                    Add To Queue
+                  </button>
+                </>
               )}
             </Menu.Item>
           ))}

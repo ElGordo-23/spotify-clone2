@@ -27,7 +27,6 @@ export const getUserPlaylists = async (axiosClient: Axios) => {
     const response = await axiosClient.get<Playlist>(
       'https://api.spotify.com/v1/me/playlists',
     );
-    console.log(response.data);
 
     return response.data;
   } catch (error) {

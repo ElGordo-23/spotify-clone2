@@ -13,6 +13,12 @@ const SCOPES: string[] = [
   'user-read-playback-state',
   'user-modify-playback-state',
   'user-read-currently-playing',
+  'user-library-read',
+  'user-library-modify',
+  'user-read-recently-played',
+  'user-read-playback-position',
+  'user-top-read',
+  'playlist-modify-public',
 ];
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
