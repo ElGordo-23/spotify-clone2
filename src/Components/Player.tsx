@@ -4,29 +4,19 @@ import { usePlayerControls } from './PlayerControlsProvider';
 
 export default function Player() {
   const { token } = useToken();
-  const { trackUri, setTrackUri, songQueue } = usePlayerControls();
+  const { setSongQueue, songQueue } = usePlayerControls();
+
+  console.log(songQueue);
 
   return token ? (
-    songQueue ? (
-      <SpotifyWebPlayer
-        token={token}
-        showSaveIcon
-        play={!!songQueue}
-        callback={(state) => {
-          if (!state.isPlaying) setTrackUri(null);
-        }}
-        uris={songQueue ? songQueue : []}
-      />
-    ) : (
-      <SpotifyWebPlayer
-        token={token}
-        showSaveIcon
-        play={!!trackUri}
-        callback={(state) => {
-          if (!state.isPlaying) setTrackUri(null);
-        }}
-        uris={trackUri ? [trackUri] : []}
-      />
-    )
+    <SpotifyWebPlayer
+      token={token}
+      showSaveIcon
+      play={!!songQueue?.length}
+      callback={(state) => {
+        if (!state.isPlaying) setSongQueue(null);
+      }}
+      uris={songQueue || []}
+    />
   ) : null;
 }

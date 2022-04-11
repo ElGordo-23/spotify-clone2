@@ -8,7 +8,7 @@ type RenderPropsTypes = {
 
 export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
   const { data: topTracks } = useArtistTopTracks(artistId);
-  const { setTrackUri } = usePlayerControls();
+  const { setSongQueue } = usePlayerControls();
 
   return (
     <div className="z-10 text-white list-decimal">
@@ -18,7 +18,7 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
         songDuration = songDuration.replace(/\./g, ':');
 
         return (
-          <div className="flex justify-between hover:bg-gray-500 rounded z-0">
+          <div className="flex justify-between hover:bg-gray-500 rounded z-0 group">
             <ol className="grid grid-cols-2 list-decimal">
               <li className="flex gap-2  mt-1" key={track.id}>
                 <img
@@ -27,10 +27,10 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
                   className="h-6 w-6 object-cover"
                 />
                 <br />
-                <button onClick={() => setTrackUri(track.uri)}>
+                <button onClick={() => setSongQueue(track.uri)}>
                   {track.name}
                 </button>
-                <div>
+                <div className="opacity-0 group-hover:opacity-100">
                   <PlaylistSelector trackUri={track.uri} />
                 </div>
               </li>

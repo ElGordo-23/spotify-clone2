@@ -7,8 +7,14 @@ export function SingleAlbum() {
   const { albumId } = useParams();
   const navigate = useNavigate();
 
-  const { setTrackUri } = usePlayerControls();
+  const { setSongQueue } = usePlayerControls();
   const { data: album } = useSingleAlbum(albumId);
+
+  const getAllUris = () => {
+    const allUris: string[] = [];
+    album?.tracks.items.map((track) => allUris.push(track.uri));
+    return allUris;
+  };
 
   return (
     <div className="relative">
@@ -27,6 +33,15 @@ export function SingleAlbum() {
         {album?.artists[0].name}
       </button>
       <br />
+      <button
+        onClick={() => {
+          setSongQueue(getAllUris());
+        }}
+        className="text-white"
+      >
+        Play all
+      </button>
+      <br />
       <ul className="z-10 h-[264px] w-[700px] text-white overflow-hidden hover:overflow-auto">
         {album?.tracks?.items.map((track) => {
           let songDuration: string;
@@ -43,7 +58,7 @@ export function SingleAlbum() {
                   />
                   <br />
                   <button
-                    onClick={() => setTrackUri(track.uri)}
+                    onClick={() => setSongQueue(track.uri)}
                     className="hover:bg-gray-500 rounded"
                   >
                     {track.name}

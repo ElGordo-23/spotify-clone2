@@ -1,23 +1,29 @@
-import { createContext, FC, useContext, useState } from 'react';
+import { createContext, FC, useCallback, useContext, useState } from 'react';
 
 const PlayerControlsContext = createContext<{
-  trackUri: string | null;
+  // trackUri: string | null;
   songQueue: string[] | null;
-  setTrackUri: (value: any) => void;
-  setSongQueue: (value: any) => void;
+  // setTrackUri: (value: any) => void;
+  setSongQueue: (value: string | string[] | null) => void;
 }>({
-  trackUri: null,
-  setTrackUri: () => {},
+  // trackUri: null,
+  // setTrackUri: () => {},
   songQueue: null,
   setSongQueue: () => {},
 });
 
 export const PlayerControlsProvider: FC = ({ children }) => {
-  const [trackUri, setTrackUri] = useState(null);
-  const [songQueue, setSongQueue] = useState(null);
+  // const [trackUri, setTrackUri] = useState(null);
+  const [internalSongQueue, setInternalSongQueue] = useState<string[] | null>(
+    null,
+  );
+  const setSongQueue = useCallback((song) => {
+    setInternalSongQueue(!song || Array.isArray(song) ? song : [song]);
+  }, []);
+
   return (
     <PlayerControlsContext.Provider
-      value={{ trackUri, setTrackUri, songQueue, setSongQueue }}
+      value={{ songQueue: internalSongQueue, setSongQueue }}
     >
       {children}
     </PlayerControlsContext.Provider>
