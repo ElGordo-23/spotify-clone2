@@ -1,23 +1,15 @@
-import { useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
-import { searchArtists } from '../API/searchArtists';
-import { useAxiosClient } from './AxiosClientProvider';
+import { useSearch } from '../API/searchArtists';
 
 type SearchArtistProps = {
   searchKey: string;
 };
 
 export function SearchArtists({ searchKey }: SearchArtistProps) {
-  const axiosClient = useAxiosClient();
   const navigate = useNavigate();
 
-  const { data: searchedArtists } = useQuery(
-    'search',
-    () => searchArtists(axiosClient, searchKey),
-    {},
-  );
-
-  console.log(searchedArtists);
+  const { data: searchedArtists } = useSearch(searchKey);
+  console.log(searchKey);
   return (
     <div>
       <h2 className="font-extrabold text-6xl text-white translate-x-8">

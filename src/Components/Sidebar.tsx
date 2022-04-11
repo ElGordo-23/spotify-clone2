@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useToken } from '../API/useToken';
-import Player from './Player';
 
 export function Sidebar() {
   const { logout } = useToken();
@@ -35,26 +34,18 @@ export function Sidebar() {
               </Link>
             </li>
             <li>
-              <Link
-                to="/"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <span className="flex-1 ml-3 whitespace-nowrap">Library</span>
-              </Link>
-            </li>
-            <li>
               <a
                 href="/"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <button
+                <span
                   onClick={() => {
                     logout();
                   }}
                   className="flex-1 ml-3 whitespace-nowrap"
                 >
                   Sign Out
-                </button>
+                </span>
               </a>
             </li>{' '}
           </ul>

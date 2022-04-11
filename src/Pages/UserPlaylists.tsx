@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useUserPlaylists } from '../API/getUserPlaylists';
+import { CreateNewPlaylist } from '../Components/CreateNewPlaylist';
 
 export function UserPlaylists() {
   const { data: playlists } = useUserPlaylists();
@@ -7,6 +8,7 @@ export function UserPlaylists() {
   return (
     <div className="flex flex-col items-center">
       <h2 className="font-extrabold text-6xl z-20 text-white">Playlists</h2>
+      <CreateNewPlaylist />
       <div className="relative mt-4 ml-4">
         <ul className="text-white mt-5">
           {playlists?.items.map((playlist) => (

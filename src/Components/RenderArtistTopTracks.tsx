@@ -8,7 +8,7 @@ type RenderPropsTypes = {
 
 export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
   const { data: topTracks } = useArtistTopTracks(artistId);
-  const { setTrackUri, songQueue } = usePlayerControls();
+  const { setTrackUri } = usePlayerControls();
 
   return (
     <div className="z-10 text-white list-decimal">

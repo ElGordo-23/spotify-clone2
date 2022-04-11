@@ -1,5 +1,7 @@
 import { Axios } from 'axios';
+import { useQuery } from 'react-query';
 import { SearchContent } from 'spotify-types';
+import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 export const searchArtists = async (axiosClient: Axios, searchKey: string) => {
   try {
@@ -12,8 +14,15 @@ export const searchArtists = async (axiosClient: Axios, searchKey: string) => {
         },
       },
     );
+    console.log(data);
     return data.artists?.items;
   } catch (error) {
     console.log(error);
   }
 };
+
+export function useSearch(searchKey: string) {
+  const axiosClient = useAxiosClient();
+
+  return useQuery('search', () => searchArtists(axiosClient, searchKey), {});
+}

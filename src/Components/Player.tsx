@@ -6,8 +6,6 @@ export default function Player() {
   const { token } = useToken();
   const { trackUri, setTrackUri, songQueue } = usePlayerControls();
 
-  console.log(songQueue);
-
   return token ? (
     songQueue ? (
       <SpotifyWebPlayer

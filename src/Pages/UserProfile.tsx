@@ -1,23 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getUserProfile } from '../API/getUserProfile';
-import { useAxiosClient } from '../Components/AxiosClientProvider';
-import Example from '../Components/Testtest';
-
-type User = {
-  display_name: string;
-  id: string;
-};
+import { useGetUser } from '../API/getUserProfile';
 
 export function UserProfile() {
-  const axiosClient = useAxiosClient();
-
-  const [user, setUser] = useState<User>();
-
-  useEffect(() => {
-    getUserProfile(axiosClient)
-      .then((data) => setUser(data))
-      .catch((error) => console.log(error));
-  }, [axiosClient]);
+  const { data: user } = useGetUser();
 
   return (
     <div>
@@ -26,7 +10,6 @@ export function UserProfile() {
           {user.display_name}
         </h2>
       ) : null}
-      <Example />
     </div>
   );
 }

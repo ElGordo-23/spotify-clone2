@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { usePlaylistTracks } from '../API/getUserPlaylists';
-import Player from '../Components/Player';
 import { usePlayerControls } from '../Components/PlayerControlsProvider';
 
 export function SinglePlaylist() {
