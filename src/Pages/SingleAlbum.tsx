@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSingleAlbum } from '../API/getAlbum';
 import { usePlayerControls } from '../Components/PlayerControlsProvider';
+import { PlaylistSelector } from '../Components/PlaylistSelector';
 
 export function SingleAlbum() {
   const { albumId } = useParams();
@@ -47,7 +48,8 @@ export function SingleAlbum() {
                   >
                     {track.name}
                   </button>
-                </li>{' '}
+                  <PlaylistSelector trackUri={track.uri} />
+                </li>
                 <span>{songDuration}</span>
               </div>
             </li>

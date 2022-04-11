@@ -7,6 +7,7 @@ type Tracks = {
     name: string;
     uri: string;
     duration_ms: number;
+    id: string;
     album: {
       images: { url: string }[];
     };

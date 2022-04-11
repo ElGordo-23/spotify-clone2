@@ -1,9 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
+import { useDeleteSongFromPlaylist } from '../API/deleteSongFromPlaylist';
 import { usePlaylistTracks } from '../API/getUserPlaylists';
 import { usePlayerControls } from '../Components/PlayerControlsProvider';
 
 export function SinglePlaylist() {
   const { playlistId, playlistName } = useParams();
+  const { mutate } = useDeleteSongFromPlaylist();
 
   const { setTrackUri, setSongQueue } = usePlayerControls();
 
@@ -53,6 +55,17 @@ export function SinglePlaylist() {
                     {track.track.artists[0].name}
                   </Link>
                 </div>
+                <span
+                  onClick={() =>
+                    mutate({
+                      playlistId: playlistId,
+                      trackUri: track.track.uri,
+                    })
+                  }
+                  className="text-white cursor-pointer"
+                >
+                  x
+                </span>
               </li>
             ))
           : null}

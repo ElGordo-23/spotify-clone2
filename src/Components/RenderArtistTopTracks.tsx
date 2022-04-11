@@ -20,7 +20,7 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
         return (
           <div className="flex justify-between hover:bg-gray-500 rounded z-0">
             <ol className="grid grid-cols-2 list-decimal">
-              <li className="flex gap-2  mt-1">
+              <li className="flex gap-2  mt-1" key={track.id}>
                 <img
                   src={track.album.images[2].url}
                   alt="Album Cover"
