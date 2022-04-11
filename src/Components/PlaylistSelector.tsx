@@ -7,10 +7,9 @@ import {
 
 type DropDownProps = {
   trackUri: string;
-  songQueue: string[];
 };
 
-export function PlaylistSelector({ trackUri, songQueue }: DropDownProps) {
+export function PlaylistSelector({ trackUri }: DropDownProps) {
   const { data: playlist } = useUserPlaylists();
 
   const { mutate } = useAddTrackToPlaylist();
@@ -33,11 +32,7 @@ export function PlaylistSelector({ trackUri, songQueue }: DropDownProps) {
             <Popover.Panel className="absolute z-10 ">
               <div className=" rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ">
                 <div className="p-4 bg-slate-600 text-white flex flex-col w-64 h-64 overflow-auto items-baseline">
-                  {' '}
-                  <button
-                    className="hover:bg-gray-500 rounded"
-                    onClick={() => songQueue.push(trackUri)}
-                  >
+                  <button className="hover:bg-gray-500 rounded">
                     Add To Queue
                   </button>
                   {playlist?.items.map((playlist) => (

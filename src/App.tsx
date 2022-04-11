@@ -10,6 +10,7 @@ import {
 import { useToken } from './API/useToken';
 import { AxiosClientProvider } from './Components/AxiosClientProvider';
 import { Login } from './Components/login';
+import Player from './Components/Player';
 import { PlayerControlsProvider } from './Components/PlayerControlsProvider';
 import { Sidebar } from './Components/Sidebar';
 import { Home } from './Pages/Home';
@@ -22,6 +23,7 @@ import { UserProfile } from './Pages/UserProfile';
 const Layout: FC = ({ children }) => (
   <div className="flex flex-col md:flex-row">
     <Sidebar />
+
     <div className="">{children}</div>
   </div>
 );
@@ -62,6 +64,10 @@ function App() {
                   </Route>
                 </Routes>
               </Router>
+              <div className="fixed top-[264px] w-64">
+                <Player />
+              </div>
+
               <ReactQueryDevtools />
             </PlayerControlsProvider>
           </AxiosClientProvider>

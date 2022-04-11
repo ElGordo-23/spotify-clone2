@@ -7,7 +7,7 @@ import { usePlayerControls } from '../Components/PlayerControlsProvider';
 export function SinglePlaylist() {
   const { playlistId, playlistName } = useParams();
 
-  const { setTrackUri, songQueue } = usePlayerControls();
+  const { setTrackUri, setSongQueue } = usePlayerControls();
 
   const { data: tracks } = usePlaylistTracks(playlistId);
 
@@ -17,17 +17,16 @@ export function SinglePlaylist() {
     return allUris;
   };
 
-  const [allPlaylistUris, setAllPlaylistUris] = useState<string[]>();
-
   return (
     <div className="ml-4 mt-4">
       <h2 className=" font-extrabold text-6xl text-white">{playlistName}</h2>
       <button
         onClick={() => {
-          setAllPlaylistUris(getAllUris());
+          setSongQueue(getAllUris());
         }}
+        className="text-white"
       >
-        Play
+        Play all
       </button>
 
       <ul className="mt-5">
@@ -42,7 +41,10 @@ export function SinglePlaylist() {
                 <div className="flex flex-col items-baseline mt-3">
                   <button
                     className="text-white hover:bg-gray-500 rounded"
-                    onClick={() => setTrackUri(track.track.uri)}
+                    onClick={() => {
+                      setTrackUri(track.track.uri);
+                      setSongQueue(undefined);
+                    }}
                   >
                     {track.track.name}
                   </button>
@@ -59,7 +61,6 @@ export function SinglePlaylist() {
       </ul>
 
       <br />
-      <Player list={allPlaylistUris} />
     </div>
   );
 }

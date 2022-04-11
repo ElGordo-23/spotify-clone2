@@ -1,6 +1,6 @@
 import { useArtistTopTracks } from '../API/getArtistTopTracks';
-import { PlaylistSelector } from '../Components/Menu';
 import { usePlayerControls } from './PlayerControlsProvider';
+import { PlaylistSelector } from './PlaylistSelector';
 
 type RenderPropsTypes = {
   artistId: string | undefined;
@@ -31,10 +31,7 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
                   {track.name}
                 </button>
                 <div>
-                  <PlaylistSelector
-                    trackUri={track.uri}
-                    songQueue={songQueue}
-                  />
+                  <PlaylistSelector trackUri={track.uri} />
                 </div>
               </li>
             </ol>

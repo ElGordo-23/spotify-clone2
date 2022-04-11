@@ -16,7 +16,7 @@ export function SingleArtist() {
       <img
         src={artist?.images[0].url}
         alt={artist?.name}
-        className="z-10 object-cover h-[264px] w-[700px]"
+        className="z-10 object-cover object-center h-[264px] w-[700px]"
       />
       <h3 className="font-bold text-3xl z-20 text-white ">Top Songs</h3>
       <br />
