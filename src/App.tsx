@@ -14,9 +14,11 @@ import Player from './Components/Player';
 import { PlayerControlsProvider } from './Components/PlayerControlsProvider';
 import { Sidebar } from './Components/Sidebar';
 import { Home } from './Pages/Home';
+import { Shows } from './Pages/Shows';
 import { SingleAlbum } from './Pages/SingleAlbum';
 import { SingleArtist } from './Pages/SingleArtist';
 import { SinglePlaylist } from './Pages/SinglePlaylist';
+import { SingleShow } from './Pages/SingleShow';
 import { UserPlaylists } from './Pages/UserPlaylists';
 import { UserProfile } from './Pages/UserProfile';
 
@@ -55,6 +57,9 @@ function App() {
                       element={<SingleArtist />}
                     />
                     <Route path="/album/:albumId" element={<SingleAlbum />} />
+                    <Route path="/shows" element={<Shows />} />
+                    <Route path="/shows/:showId" element={<SingleShow />} />
+
                     <Route path="/userProfile" element={<UserProfile />} />
                     <Route path="/userPlaylists" element={<UserPlaylists />} />
                     <Route
@@ -64,7 +69,7 @@ function App() {
                   </Route>
                 </Routes>
               </Router>
-              <div className="absolute top-[212px] w-64">
+              <div className="absolute top-[256px] w-64">
                 <Player />
               </div>
 

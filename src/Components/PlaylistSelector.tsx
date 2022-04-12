@@ -12,10 +12,8 @@ type DropDownProps = {
 
 export function PlaylistSelector({ trackUri }: DropDownProps) {
   const { data: playlist } = useUserPlaylists();
-  const { setSongQueue, customSongQueue, songQueue } = usePlayerControls();
+  const { addToQueue } = usePlayerControls();
   const { mutate } = useAddTrackToPlaylist();
-
-  console.log(songQueue);
 
   return (
     <Popover className="relative ">
@@ -39,8 +37,7 @@ export function PlaylistSelector({ trackUri }: DropDownProps) {
                   <button
                     className="hover:bg-gray-500 rounded"
                     onClick={() => {
-                      customSongQueue?.push(trackUri);
-                      setSongQueue(customSongQueue);
+                      addToQueue(trackUri);
                     }}
                   >
                     Add To Queue

@@ -6,16 +6,19 @@ import { usePlayerControls } from './PlayerControlsProvider';
 export default function Player() {
   const { token } = useToken();
   const { songQueue } = usePlayerControls();
+  const [position, setPosition] = useState(0);
 
-  console.log(songQueue);
+  useEffect(() => console.log(position));
 
   return token ? (
     <SpotifyWebPlayer
       token={token}
       showSaveIcon
-      play={!!songQueue?.length}
+      offset={position}
       callback={(state) => {
-        console.log(state.nextTracks.length);
+        if (songQueue?.length) {
+          setPosition(songQueue?.findIndex((uri) => uri === state.track.uri));
+        }
       }}
       uris={songQueue || []}
     />
