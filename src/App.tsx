@@ -64,7 +64,7 @@ function App() {
                   </Route>
                 </Routes>
               </Router>
-              <div className="fixed top-[212px] w-64">
+              <div className="absolute top-[212px] w-64">
                 <Player />
               </div>
 

@@ -8,7 +8,16 @@ type RenderPropsTypes = {
 
 export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
   const { data: topTracks } = useArtistTopTracks(artistId);
-  const { setSongQueue } = usePlayerControls();
+  const { songQueue, setSongQueue, customSongQueue } = usePlayerControls();
+
+  const singleSongPlayback = (trackUri: string) => {
+    if (Array.isArray(customSongQueue) && customSongQueue?.length > 1) {
+      customSongQueue?.unshift(trackUri);
+      setSongQueue(customSongQueue);
+    } else {
+      setSongQueue(trackUri);
+    }
+  };
 
   return (
     <div className="z-10 text-white list-decimal">
@@ -27,7 +36,7 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
                   className="h-6 w-6 object-cover"
                 />
                 <br />
-                <button onClick={() => setSongQueue(track.uri)}>
+                <button onClick={() => singleSongPlayback(track.uri)}>
                   {track.name}
                 </button>
                 <div className="opacity-0 group-hover:opacity-100">

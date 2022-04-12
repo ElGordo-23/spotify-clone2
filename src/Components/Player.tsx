@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
 import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 import { useToken } from '../API/useToken';
 import { usePlayerControls } from './PlayerControlsProvider';
 
 export default function Player() {
   const { token } = useToken();
-  const { setSongQueue, songQueue } = usePlayerControls();
+  const { songQueue } = usePlayerControls();
 
   console.log(songQueue);
 
@@ -14,7 +15,7 @@ export default function Player() {
       showSaveIcon
       play={!!songQueue?.length}
       callback={(state) => {
-        if (!state.isPlaying) setSongQueue(null);
+        console.log(state.nextTracks.length);
       }}
       uris={songQueue || []}
     />

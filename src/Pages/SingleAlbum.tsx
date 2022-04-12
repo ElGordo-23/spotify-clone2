@@ -50,7 +50,7 @@ export function SingleAlbum() {
           return (
             <li>
               <div className="grid grid-cols-2">
-                <li className="flex gap-2 ">
+                <li className="flex gap-2">
                   <img
                     src={album.images[2].url}
                     alt="Album Cover"

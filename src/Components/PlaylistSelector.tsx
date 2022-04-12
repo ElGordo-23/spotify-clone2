@@ -4,6 +4,7 @@ import {
   useAddTrackToPlaylist,
   useUserPlaylists,
 } from '../API/getUserPlaylists';
+import { usePlayerControls } from './PlayerControlsProvider';
 
 type DropDownProps = {
   trackUri: string;
@@ -11,8 +12,11 @@ type DropDownProps = {
 
 export function PlaylistSelector({ trackUri }: DropDownProps) {
   const { data: playlist } = useUserPlaylists();
-
+  const { setSongQueue, customSongQueue, songQueue } = usePlayerControls();
   const { mutate } = useAddTrackToPlaylist();
+
+  console.log(songQueue);
+
   return (
     <Popover className="relative ">
       {({ open }) => (
@@ -32,12 +36,18 @@ export function PlaylistSelector({ trackUri }: DropDownProps) {
             <Popover.Panel className="absolute z-10 ">
               <div className=" rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 ">
                 <div className="p-4 bg-slate-600 text-white flex flex-col w-64 h-64 overflow-auto items-baseline">
-                  <button className="hover:bg-gray-500 rounded">
+                  <button
+                    className="hover:bg-gray-500 rounded"
+                    onClick={() => {
+                      customSongQueue?.push(trackUri);
+                      setSongQueue(customSongQueue);
+                    }}
+                  >
                     Add To Queue
                   </button>
                   {playlist?.items.map((playlist) => (
                     <ul>
-                      <li>
+                      <li key={playlist.id}>
                         <button
                           className="hover:bg-gray-500 rounded"
                           onClick={() =>

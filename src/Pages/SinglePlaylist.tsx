@@ -54,6 +54,7 @@ export function SinglePlaylist() {
                     {track.track.artists[0].name}
                   </Link>
                 </div>
+
                 <span
                   onClick={() =>
                     mutate({
