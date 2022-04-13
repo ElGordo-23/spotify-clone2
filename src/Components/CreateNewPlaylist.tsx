@@ -11,7 +11,7 @@ export function CreateNewPlaylist() {
       {({ open }) => (
         <>
           <Popover.Button>
-            <span className="font-extrabold text-3xl text-white">+</span>
+            <span className="font-extrabold text-3xl text-white ml-6">+</span>
           </Popover.Button>
           <Transition
             as={Fragment}

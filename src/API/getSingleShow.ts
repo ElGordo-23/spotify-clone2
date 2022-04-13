@@ -9,7 +9,13 @@ type Show = {
   description: string;
   images: { url: string }[];
   episodes: {
-    items: { description: string; uri: string; images: { url: string }[] }[];
+    items: {
+      name: string;
+      description: string;
+      uri: string;
+      id: string;
+      images: { url: string }[];
+    }[];
   };
 };
 
@@ -20,6 +26,7 @@ export const getSingleShow = async (
   try {
     const response = await axiosClient.get<Show>(
       `https://api.spotify.com/v1/shows/${showId}`,
+      { params: { limit: 100 } },
     );
     return response.data;
   } catch (error) {

@@ -13,6 +13,8 @@ import { Login } from './Components/login';
 import Player from './Components/Player';
 import { PlayerControlsProvider } from './Components/PlayerControlsProvider';
 import { Sidebar } from './Components/Sidebar';
+import { Browse } from './Pages/Browse';
+import { BrowseCategory } from './Pages/BrowseCategory';
 import { Home } from './Pages/Home';
 import { Shows } from './Pages/Shows';
 import { SingleAlbum } from './Pages/SingleAlbum';
@@ -59,7 +61,11 @@ function App() {
                     <Route path="/album/:albumId" element={<SingleAlbum />} />
                     <Route path="/shows" element={<Shows />} />
                     <Route path="/shows/:showId" element={<SingleShow />} />
-
+                    <Route path="/browse" element={<Browse />} />
+                    <Route
+                      path="/browse/:categoryId"
+                      element={<BrowseCategory />}
+                    />
                     <Route path="/userProfile" element={<UserProfile />} />
                     <Route path="/userPlaylists" element={<UserPlaylists />} />
                     <Route
@@ -69,7 +75,7 @@ function App() {
                   </Route>
                 </Routes>
               </Router>
-              <div className="absolute top-[256px] w-64">
+              <div className="absolute top-[300px] w-64">
                 <Player />
               </div>
 

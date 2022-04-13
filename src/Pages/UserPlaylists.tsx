@@ -1,24 +1,39 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUserPlaylists } from '../API/getUserPlaylists';
 import { CreateNewPlaylist } from '../Components/CreateNewPlaylist';
 
 export function UserPlaylists() {
   const { data: playlists } = useUserPlaylists();
+  const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center">
-      <h2 className="font-extrabold text-6xl z-20 text-white">Playlists</h2>
-      <CreateNewPlaylist />
-      <div className="relative mt-4 ml-4">
-        <ul className="text-white mt-5">
-          {playlists?.items.map((playlist) => (
-            <li key={playlist.id} className="hover:bg-gray-500 rounded">
+    <div>
+      <div className="flex items-center">
+        <h2 className="font-extrabold text-6xl z-20 text-white mt-4 ml-4">
+          Playlists
+        </h2>
+        <CreateNewPlaylist />
+      </div>
+      <br />
+      <div className="grid grid-cols-4 gap-24 items-center text-white">
+        {playlists?.items.map((playlist) => (
+          <div key={playlist.id} className=" w-32 text-center h-32 ">
+            <div className="p-2 hover:bg-gray-500 rounded w-[128px] h-[176px] overflow-hidden">
+              <img
+                className="p-1"
+                src={playlist?.images[0]?.url}
+                alt="Release"
+                onClick={() =>
+                  navigate(`/userPlaylists/${playlist.id}/${playlist.name}`)
+                }
+              />
+
               <Link to={`/userPlaylists/${playlist.id}/${playlist.name}`}>
-                {playlist.name}
+                <span>{playlist.name}</span>
               </Link>
-            </li>
-          ))}
-        </ul>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

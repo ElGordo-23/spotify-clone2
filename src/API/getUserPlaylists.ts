@@ -5,8 +5,7 @@ import { useAxiosClient } from '../Components/AxiosClientProvider';
 type Playlist = {
   name: string;
 
-  images: { url: string }[];
-  items: { name: string; tracks: {}; id: string }[];
+  items: { name: string; tracks: {}; id: string; images: { url: string }[] }[];
   tracks: { href: string };
 };
 
