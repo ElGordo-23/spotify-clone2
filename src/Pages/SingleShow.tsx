@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSingleShow } from '../API/getSingleShow';
 import { usePlayerControls } from '../Components/PlayerControlsProvider';
 import Expand from '../Components/Testtest';
@@ -8,8 +8,6 @@ export function SingleShow() {
   const { setSongQueue } = usePlayerControls();
 
   const { data: show } = useSingleShow(showId);
-
-  console.log(show);
 
   return (
     <div className="ml-4 mt-4">

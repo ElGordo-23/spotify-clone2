@@ -1,3 +1,4 @@
+import { PlayIcon } from '@heroicons/react/solid';
 import { Link, useParams } from 'react-router-dom';
 import { useDeleteSongFromPlaylist } from '../API/deleteSongFromPlaylist';
 import { usePlaylistTracks } from '../API/getUserPlaylists';
@@ -19,15 +20,17 @@ export function SinglePlaylist() {
 
   return (
     <div className="ml-4 mt-4">
-      <h2 className=" font-extrabold text-6xl text-white">{playlistName}</h2>
-      <button
-        onClick={() => {
-          setSongQueue(getAllUris());
-        }}
-        className="text-white"
-      >
-        Play all
-      </button>
+      <div className="flex">
+        <h2 className="font-extrabold text-6xl text-white">{playlistName}</h2>
+        <button
+          onClick={() => {
+            setSongQueue(getAllUris());
+          }}
+          className="text-white"
+        >
+          <PlayIcon className="w-10 h-10 ml-4 mt-2" />
+        </button>
+      </div>
 
       <ul className="mt-5">
         {tracks

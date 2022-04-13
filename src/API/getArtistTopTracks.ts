@@ -34,7 +34,7 @@ export const getArtistTopTracks = async (
 export function useArtistTopTracks(artistId: string | undefined) {
   const axiosClient = useAxiosClient();
 
-  return useQuery('topTracksKey', () =>
+  return useQuery('artistTopTracks', () =>
     getArtistTopTracks(axiosClient, artistId),
   );
 }

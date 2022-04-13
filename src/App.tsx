@@ -23,6 +23,7 @@ import { SinglePlaylist } from './Pages/SinglePlaylist';
 import { SingleShow } from './Pages/SingleShow';
 import { UserPlaylists } from './Pages/UserPlaylists';
 import { UserProfile } from './Pages/UserProfile';
+import { UserSavedTracks } from './Pages/UserSavedTracks';
 
 const Layout: FC = ({ children }) => (
   <div className="flex flex-col md:flex-row">
@@ -67,6 +68,11 @@ function App() {
                       element={<BrowseCategory />}
                     />
                     <Route path="/userProfile" element={<UserProfile />} />
+                    <Route
+                      path="/userSavedTracks"
+                      element={<UserSavedTracks />}
+                    />
+
                     <Route path="/userPlaylists" element={<UserPlaylists />} />
                     <Route
                       path="/userPlaylists/:playlistId/:playlistName"
@@ -75,7 +81,7 @@ function App() {
                   </Route>
                 </Routes>
               </Router>
-              <div className="absolute top-[300px] w-64">
+              <div className="absolute top-[350px] w-64">
                 <Player />
               </div>
 
