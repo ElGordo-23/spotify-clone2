@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { resolveProjectReferencePath } from 'typescript';
 import { useArtist } from '../API/getArtist';
 import { RenderArtistAlbums } from '../Components/RenderArtistAlbums';
 import { RenderArtistSingles } from '../Components/RenderArtistSingles';
@@ -7,28 +9,36 @@ import { RenderArtistTopTracks } from '../Components/RenderArtistTopTracks';
 export function SingleArtist() {
   const { artistId } = useParams();
 
-  const { data: artist } = useArtist(artistId);
+  const [id, setId] = useState<string | undefined>(artistId);
+
+  const { data: artist, refetch } = useArtist(id);
+
+  useEffect(() => {
+    setId(artistId);
+    refetch();
+  }, [artistId, refetch]);
+
   return (
     <div className="relative">
-      <h2 className="absolute left-4 top-48 font-extrabold text-6xl z-20 text-white ">
+      <h2 className="absolute left-4 top-48 font-extrabold text-6xl text-white ">
         {artist?.name}
       </h2>
       <img
         src={artist?.images[0].url}
         alt={artist?.name}
-        className="z-10 object-cover object-center h-[264px] w-[700px]"
+        className="object-cover object-center h-[264px] w-[700px] -z-10"
       />
-      <h3 className="font-bold text-3xl z-20 text-white ">Top Songs</h3>
+      <h3 className="font-bold text-3xl text-white ">Top Songs</h3>
       <br />
-      <RenderArtistTopTracks artistId={artistId} />
+      <RenderArtistTopTracks artistId={id} />
       <br />
-      <h3 className="font-bold text-3xl z-20 text-white ">Albums</h3>
+      <h3 className="font-bold text-3xl text-white ">Albums</h3>
       <br />
-      <RenderArtistAlbums artistId={artistId} />
+      <RenderArtistAlbums artistId={id} />
       <br />
-      <h3 className="relative font-bold text-3xl z-20 text-white ">Singles</h3>
+      <h3 className="relative font-bold text-3xl text-white ">Singles</h3>
       <br />
-      <RenderArtistSingles artistId={artistId} />
+      <RenderArtistSingles artistId={id} />
       <br />
     </div>
   );

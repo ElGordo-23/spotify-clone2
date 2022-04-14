@@ -25,7 +25,7 @@ const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 export function Login() {
   return (
     <div className="flex flex-col items-center top-24 relative">
-      <div className="p-7 border-2 border-black">
+      <div className="p-7 border-2 border-white text-white">
         <a
           className=""
           href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES_URL_PARAM}&response_type=${RESPONSE_TYPE}`}

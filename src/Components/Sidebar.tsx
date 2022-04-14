@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useToken } from '../API/useToken';
+import Example from './SearchPopover';
+import Search from './SearchPopover';
 
 export function Sidebar() {
   const { logout } = useToken();
 
   return (
-    <div>
+    <div className="z-40">
       <aside className="w-64" aria-label="Sidebar">
         <div className="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
           <ul className="space-y-2">
@@ -17,6 +19,10 @@ export function Sidebar() {
                 <span className="ml-3">Home</span>
               </Link>
             </li>
+            <li>
+              <Search />
+            </li>
+            <br />
             <li>
               <Link
                 to="/browse"

@@ -81,9 +81,9 @@ function App() {
                   </Route>
                 </Routes>
               </Router>
-              <div className="absolute top-[350px] w-64">
+              {/* <div className="absolute top-[350px] w-64 z-0">
                 <Player />
-              </div>
+              </div> */}
 
               <ReactQueryDevtools />
             </PlayerControlsProvider>

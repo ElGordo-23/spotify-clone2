@@ -14,7 +14,6 @@ export const searchArtists = async (axiosClient: Axios, searchKey: string) => {
         },
       },
     );
-    console.log(data);
     return data.artists?.items;
   } catch (error) {
     console.log(error);
