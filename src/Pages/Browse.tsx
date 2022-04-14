@@ -7,10 +7,8 @@ export function Browse() {
 
   return (
     <div>
-      <h2 className="font-extrabold text-6xl text-white translate-x-8 mt-4">
-        Browse
-      </h2>
-      <div className=" grid grid-cols-4 gap-24 items-center bg-gray-700 text-white p-9">
+      <h2 className="font-extrabold text-6xl text-white ml-4 mt-4">Browse</h2>
+      <div className=" grid grid-cols-4 gap-24 items-center bg-gray-700 text-white mt-2">
         {browseCategories
           ? browseCategories.categories?.items?.map((category) => (
               <div key={category.id} className=" w-32 text-center h-32 ">

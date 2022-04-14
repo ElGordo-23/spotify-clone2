@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useToken } from '../API/useToken';
-import Example from './SearchPopover';
 import Search from './SearchPopover';
 
 export function Sidebar() {
@@ -82,7 +81,6 @@ export function Sidebar() {
             </li>{' '}
           </ul>
         </div>
-        {/* <Player /> */}
       </aside>
     </div>
   );

@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { SearchIcon } from '@heroicons/react/solid';
 import { Fragment, useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSearch } from '../API/searchArtists';
 
 export default function Search() {
@@ -11,8 +11,6 @@ export default function Search() {
   const { refetch, data: searchedArtists } = useSearch(searchKey);
 
   const navigate = useNavigate();
-
-  console.log(searchedArtists);
 
   const queryCLient = useQueryClient();
 
@@ -25,19 +23,18 @@ export default function Search() {
   };
 
   return (
-    <div className="w-full max-w-sm px-4 fixed top-16">
-      <Popover className="relative">
+    <div className="absolute ml-5">
+      <Popover className="">
         {({ open }) => (
           <>
             <Popover.Button
-              className={`
-                ${open ? '' : 'text-opacity-90'}
-                text-white group rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+              className="
+                text-white group rounded-md inline-flex items-center text-base font-medium"
             >
               <span>Search</span>
               <SearchIcon
-                className={`${open ? '' : 'text-opacity-70'}
-                  ml-2 h-5 w-5 text-white group-hover:text-opacity-80 transition ease-in-out duration-150`}
+                className="
+                  ml-2 h-5 w-5 text-white"
                 aria-hidden="true"
               />
             </Popover.Button>

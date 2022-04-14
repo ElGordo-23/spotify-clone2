@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { resolveProjectReferencePath } from 'typescript';
 import { useArtist } from '../API/getArtist';
 import { RenderArtistAlbums } from '../Components/RenderArtistAlbums';
 import { RenderArtistSingles } from '../Components/RenderArtistSingles';
@@ -26,20 +25,22 @@ export function SingleArtist() {
       <img
         src={artist?.images[0].url}
         alt={artist?.name}
-        className="object-cover object-center h-[264px] w-[700px] -z-10"
+        className="object-cover object-center h-[264px] w-[716px]"
       />
-      <h3 className="font-bold text-3xl text-white ">Top Songs</h3>
-      <br />
-      <RenderArtistTopTracks artistId={id} />
-      <br />
-      <h3 className="font-bold text-3xl text-white ">Albums</h3>
-      <br />
-      <RenderArtistAlbums artistId={id} />
-      <br />
-      <h3 className="relative font-bold text-3xl text-white ">Singles</h3>
-      <br />
-      <RenderArtistSingles artistId={id} />
-      <br />
+      <div className="ml-4">
+        <h3 className="font-bold text-3xl text-white ">Top Songs</h3>
+        <br />
+        <RenderArtistTopTracks artistId={id} />
+        <br />
+        <h3 className="font-bold text-3xl text-white ">Albums</h3>
+        <br />
+        <RenderArtistAlbums artistId={id} />
+        <br />
+        <h3 className="relative font-bold text-3xl text-white ">Singles</h3>
+        <br />
+        <RenderArtistSingles artistId={id} />
+        <br />
+      </div>
     </div>
   );
 }

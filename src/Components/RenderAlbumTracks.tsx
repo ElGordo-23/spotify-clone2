@@ -1,13 +1,13 @@
-import { useArtistTopTracks } from '../API/getArtistTopTracks';
+import { useSingleAlbum } from '../API/getAlbum';
 import { usePlayerControls } from './PlayerControlsProvider';
 import { PlaylistSelector } from './PlaylistSelector';
 
 type RenderPropsTypes = {
-  artistId: string | undefined;
+  albumId: string | undefined;
 };
 
-export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
-  const { data: topTracks } = useArtistTopTracks(artistId);
+export function RenderAlbumSongs({ albumId }: RenderPropsTypes) {
+  const { data: album } = useSingleAlbum(albumId);
   const { setSongQueue } = usePlayerControls();
 
   // const singleSongPlayback = (trackUri: string) => {
@@ -21,7 +21,7 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
 
   return (
     <div className="text-white">
-      {topTracks?.map((track) => {
+      {album?.tracks?.items.map((track) => {
         let songDuration: string;
         songDuration = `${(track.duration_ms / 60000).toFixed(2)}`;
         songDuration = songDuration.replace(/\./g, ':');
@@ -34,7 +34,7 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
                 key={track.id}
               >
                 <img
-                  src={track.album.images[2].url}
+                  src={album.images[2].url}
                   alt="Album Cover"
                   className="h-6 w-6 object-cover"
                 />

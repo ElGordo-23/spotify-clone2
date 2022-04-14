@@ -9,9 +9,9 @@ export function Shows() {
   console.log(shows);
 
   return (
-    <div>
+    <div className="mt-4 ml-4">
       <h2 className="font-extrabold text-6xl z-20 text-white">Your Shows</h2>
-      <div className="grid grid-cols-4 gap-24 items-center bg-gray-700 text-white p-9">
+      <div className="grid grid-cols-4 gap-24 items-center bg-gray-700 text-white">
         {shows?.map((show) => (
           <div key={show.show.id} className=" w-32 text-center h-32 ">
             <div className="p-2 hover:bg-gray-500 rounded w-[128px] h-[176px] overflow-hidden">

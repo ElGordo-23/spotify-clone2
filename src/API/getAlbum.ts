@@ -8,7 +8,7 @@ type Album = {
   images: { url: string }[];
 
   tracks: {
-    items: { name: string; uri: string; duration_ms: number }[];
+    items: { name: string; uri: string; duration_ms: number; id: string }[];
   };
 };
 

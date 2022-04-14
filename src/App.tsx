@@ -10,7 +10,7 @@ import {
 import { useToken } from './API/useToken';
 import { AxiosClientProvider } from './Components/AxiosClientProvider';
 import { Login } from './Components/login';
-import Player from './Components/Player';
+import { NewReleases } from './Components/NewReleases';
 import { PlayerControlsProvider } from './Components/PlayerControlsProvider';
 import { Sidebar } from './Components/Sidebar';
 import { Browse } from './Pages/Browse';
@@ -54,7 +54,7 @@ function App() {
                       </Layout>
                     }
                   >
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<NewReleases />} />
                     <Route
                       path="/artist/:artistId"
                       element={<SingleArtist />}

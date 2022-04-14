@@ -7,17 +7,14 @@ export function UserPlaylists() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="mt-4 ml-4">
       <div className="flex items-center">
-        <h2 className="font-extrabold text-6xl z-20 text-white mt-4 ml-4">
-          Playlists
-        </h2>
+        <h2 className="font-extrabold text-6xl z-20 text-white">Playlists</h2>
         <CreateNewPlaylist />
       </div>
-      <br />
       <div className="grid grid-cols-4 gap-24 items-center text-white">
         {playlists?.items.map((playlist) => (
-          <div key={playlist.id} className=" w-32 text-center h-32 ">
+          <div key={playlist.id} className="w-32 text-center h-32 ">
             <div className="p-2 hover:bg-gray-500 rounded w-[128px] h-[176px] overflow-hidden">
               <img
                 className="p-1"

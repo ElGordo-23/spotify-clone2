@@ -15,7 +15,7 @@ export function UserSavedTracks() {
     <>
       <div className="mt-4 ml-4">
         <h2 className="font-extrabold text-6xl text-white">Saved Tracks</h2>
-        <ul className="mt-5">
+        <ul>
           {savedTracks
             ? savedTracks.items?.map((track) => (
                 <li className="flex gap-2 group" key={track.track.id}>
