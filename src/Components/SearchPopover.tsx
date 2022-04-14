@@ -8,22 +8,12 @@ import { useSearch } from '../API/searchArtists';
 export default function Search() {
   const [searchKey, setSearchKey] = useState<string>('');
 
-  const { refetch, data: searchedArtists } = useSearch(searchKey);
+  const { data: searchedArtists } = useSearch(searchKey);
 
   const navigate = useNavigate();
 
-  const queryCLient = useQueryClient();
-
-  const clearSearch = () => {
-    queryCLient.invalidateQueries('search');
-  };
-
-  const clearArtistQuery = () => {
-    queryCLient.invalidateQueries('singleArtist');
-  };
-
   return (
-    <div className="absolute ml-5">
+    <div className="absolute ml-5 z-50">
       <Popover className="">
         {({ open }) => (
           <>
@@ -55,7 +45,6 @@ export default function Search() {
                         className="bg-gray-800 text-white rounded-lg w-64 h-12 pl-2"
                         onChange={(e) => {
                           setSearchKey(e.target.value);
-                          refetch();
                         }}
                         value={searchKey}
                         placeholder="Search"
@@ -70,7 +59,6 @@ export default function Search() {
                             onClick={() => {
                               navigate(`/artist/${artist.id}`);
                               setSearchKey('');
-                              // clearArtistQuery();
                               close();
                             }}
                           >

@@ -6,7 +6,7 @@ type RenderPropsTypes = {
   albumId: string | undefined;
 };
 
-export function RenderAlbumSongs({ albumId }: RenderPropsTypes) {
+export function RenderAlbumTracks({ albumId }: RenderPropsTypes) {
   const { data: album } = useSingleAlbum(albumId);
   const { setSongQueue } = usePlayerControls();
 
@@ -27,7 +27,10 @@ export function RenderAlbumSongs({ albumId }: RenderPropsTypes) {
         songDuration = songDuration.replace(/\./g, ':');
 
         return (
-          <div className="flex justify-between hover:bg-gray-500 rounded z-0 group w-[700px] ">
+          <div
+            className="flex justify-between hover:bg-gray-500 rounded z-0 group w-[700px] cursor-pointer "
+            key={track.id}
+          >
             <ul className="list-decimal text-white">
               <li
                 className="flex justify-center items-center gap-2 p-1"

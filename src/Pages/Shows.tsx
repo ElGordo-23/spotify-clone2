@@ -6,8 +6,6 @@ export function Shows() {
 
   const navigate = useNavigate();
 
-  console.log(shows);
-
   return (
     <div className="mt-4 ml-4">
       <h2 className="font-extrabold text-6xl z-20 text-white">Your Shows</h2>
@@ -32,7 +30,6 @@ export function Shows() {
           </div>
         ))}
       </div>
-      ;
     </div>
   );
 }

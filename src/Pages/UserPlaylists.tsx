@@ -12,7 +12,7 @@ export function UserPlaylists() {
         <h2 className="font-extrabold text-6xl z-20 text-white">Playlists</h2>
         <CreateNewPlaylist />
       </div>
-      <div className="grid grid-cols-4 gap-24 items-center text-white">
+      <div className="grid lg:grid-cols-4 lg:gap-24 items-center text-white sm:grid-cols-2 sm:gap-10">
         {playlists?.items.map((playlist) => (
           <div key={playlist.id} className="w-32 text-center h-32 ">
             <div className="p-2 hover:bg-gray-500 rounded w-[128px] h-[176px] overflow-hidden">

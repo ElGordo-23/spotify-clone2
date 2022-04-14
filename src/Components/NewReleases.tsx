@@ -17,10 +17,8 @@ export function NewReleases() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <h2 className="font-extrabold text-6xl text-white mt-4 ml-4">
-        New Releases
-      </h2>
+    <div className="mt-4 ml-4">
+      <h2 className="font-extrabold text-6xl text-white">New Releases</h2>
       <div className=" grid grid-cols-4 gap-24 items-center bg-gray-700 text-white">
         {releases?.map((release: Release) => (
           <ul key={release.artists[0].id} className=" w-32 text-center h-32 ">

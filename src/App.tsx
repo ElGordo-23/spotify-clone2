@@ -11,11 +11,11 @@ import { useToken } from './API/useToken';
 import { AxiosClientProvider } from './Components/AxiosClientProvider';
 import { Login } from './Components/login';
 import { NewReleases } from './Components/NewReleases';
+import Player from './Components/Player';
 import { PlayerControlsProvider } from './Components/PlayerControlsProvider';
 import { Sidebar } from './Components/Sidebar';
 import { Browse } from './Pages/Browse';
 import { BrowseCategory } from './Pages/BrowseCategory';
-import { Home } from './Pages/Home';
 import { Shows } from './Pages/Shows';
 import { SingleAlbum } from './Pages/SingleAlbum';
 import { SingleArtist } from './Pages/SingleArtist';
@@ -81,10 +81,6 @@ function App() {
                   </Route>
                 </Routes>
               </Router>
-              {/* <div className="absolute top-[350px] w-64 z-0">
-                <Player />
-              </div> */}
-
               <ReactQueryDevtools />
             </PlayerControlsProvider>
           </AxiosClientProvider>

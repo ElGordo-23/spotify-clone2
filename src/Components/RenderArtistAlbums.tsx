@@ -17,7 +17,7 @@ export function RenderArtistAlbums({ artistId }: RenderPropsTypes) {
   return (
     <div className="grid grid-cols-4 overflow-hidden hover:overflow-auto object-cover h-[200px] w-[700px] gap-4 scrollbar-hide">
       {albums?.map((album) => (
-        <div key={album.id} className="">
+        <div key={album.id}>
           <div className="p-2 hover:bg-gray-500 rounded w-24 h-36 overflow-hidden text-center">
             <img
               src={album.images[1].url}

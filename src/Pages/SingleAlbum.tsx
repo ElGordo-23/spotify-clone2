@@ -2,7 +2,7 @@ import { PlayIcon } from '@heroicons/react/solid';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSingleAlbum } from '../API/getAlbum';
 import { usePlayerControls } from '../Components/PlayerControlsProvider';
-import { RenderAlbumSongs } from '../Components/RenderAlbumTracks';
+import { RenderAlbumTracks } from '../Components/RenderAlbumTracks';
 
 export function SingleAlbum() {
   const { albumId } = useParams();
@@ -44,7 +44,7 @@ export function SingleAlbum() {
           <PlayIcon className="w-10 h-10 mt-2" />
         </button>
         <br />
-        <RenderAlbumSongs albumId={albumId} />
+        <RenderAlbumTracks albumId={albumId} />
         <br />
       </div>
     </div>

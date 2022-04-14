@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useArtist } from '../API/getArtist';
 import { RenderArtistAlbums } from '../Components/RenderArtistAlbums';
@@ -10,12 +10,11 @@ export function SingleArtist() {
 
   const [id, setId] = useState<string | undefined>(artistId);
 
-  const { data: artist, refetch } = useArtist(id);
+  const { data: artist } = useArtist(id);
 
   useEffect(() => {
     setId(artistId);
-    refetch();
-  }, [artistId, refetch]);
+  }, [artistId]);
 
   return (
     <div className="relative">

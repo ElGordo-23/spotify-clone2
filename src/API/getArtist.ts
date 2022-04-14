@@ -11,7 +11,9 @@ type Artist = {
 export function useArtist(artistId: string | undefined) {
   const axiosClient = useAxiosClient();
 
-  return useQuery('singleArtist', () => getSingleArtist(axiosClient, artistId));
+  return useQuery(['singleArtist', artistId], () =>
+    getSingleArtist(axiosClient, artistId),
+  );
 }
 
 export const getSingleArtist = async (

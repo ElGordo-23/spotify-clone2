@@ -42,8 +42,8 @@ export function PlaylistSelector({ trackUri }: DropDownProps) {
                   >
                     Add To Queue
                   </button>
-                  {playlist?.items.map((playlist) => (
-                    <ul>
+                  <ul>
+                    {playlist?.items.map((playlist) => (
                       <li key={playlist.id}>
                         <button
                           className="hover:bg-gray-500 rounded"
@@ -54,8 +54,8 @@ export function PlaylistSelector({ trackUri }: DropDownProps) {
                           {playlist.name}
                         </button>
                       </li>
-                    </ul>
-                  ))}
+                    ))}
+                  </ul>
                 </div>
                 <br />
               </div>

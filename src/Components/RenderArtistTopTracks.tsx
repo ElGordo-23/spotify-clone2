@@ -21,15 +21,18 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
 
   return (
     <div className="text-white">
-      {topTracks?.map((track) => {
-        let songDuration: string;
-        songDuration = `${(track.duration_ms / 60000).toFixed(2)}`;
-        songDuration = songDuration.replace(/\./g, ':');
+      <ol className="text-white">
+        {topTracks?.map((track, index) => {
+          let songDuration: string;
+          songDuration = `${(track.duration_ms / 60000).toFixed(2)}`;
+          songDuration = songDuration.replace(/\./g, ':');
 
-        return (
-          <div className="flex justify-between hover:bg-gray-500 rounded z-0 group w-[700px] ">
-            <ul className="list-decimal text-white">
-              <li
+          return (
+            <li
+              className="hover:bg-gray-500 rounded group w-[700px] cursor-pointer flex justify-between align-center"
+              key={track.id}
+            >
+              <div
                 className="flex justify-center items-center gap-2 p-1"
                 key={track.id}
               >
@@ -38,19 +41,20 @@ export function RenderArtistTopTracks({ artistId }: RenderPropsTypes) {
                   alt="Album Cover"
                   className="h-6 w-6 object-cover"
                 />
-                <br />
+                <div>{index + 1}.</div>
+
                 <span onClick={() => setSongQueue(track.uri)}>
                   {track.name}
                 </span>
                 <div className="opacity-0 group-hover:opacity-100">
                   <PlaylistSelector trackUri={track.uri} />
                 </div>
-              </li>
-            </ul>
-            <span className="mt-1">{songDuration}</span>
-          </div>
-        );
-      })}
+              </div>
+              <span className="mt-1">{songDuration}</span>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 import { useToken } from '../API/useToken';
 import { usePlayerControls } from './PlayerControlsProvider';
@@ -7,8 +7,6 @@ export default function Player() {
   const { token } = useToken();
   const { songQueue } = usePlayerControls();
   const [position, setPosition] = useState(0);
-
-  useEffect(() => console.log(position));
 
   return token ? (
     <SpotifyWebPlayer

@@ -19,7 +19,7 @@ export function RenderArtistSingles({ artistId }: RenderPropsTypes) {
   return (
     <div className="grid grid-cols-4 overflow-hidden hover:overflow-auto object-cover h-[200px] w-[700px] gap-4 scrollbar-hide">
       {singles?.map((single) => (
-        <div key={single.id} className=" w-32 text-center h-32 ">
+        <div key={single.id} className="w-32 text-center h-32 ">
           <div className="p-2 hover:bg-gray-500 rounded w-20 h-36 overflow-hidden">
             <img
               src={single.images[2].url}
