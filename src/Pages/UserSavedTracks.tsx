@@ -1,20 +1,45 @@
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDeleteSong } from '../API/deleteUserLikedSong';
 import { useUserSavedTracks } from '../API/getUserSavedTracks';
 import { usePlayerControls } from '../Components/PlayerControlsProvider';
 
 export function UserSavedTracks() {
-  const { data: savedTracks } = useUserSavedTracks();
   const { mutate } = useDeleteSong();
+  const [page, setPage] = useState<number>(1);
+
+  const pageSize = 50;
 
   const { setSongQueue } = usePlayerControls();
+  const { data: savedTracks } = useUserSavedTracks((page - 1) * pageSize);
 
-  console.log(savedTracks?.items[0].track.id);
+  const lastPage = savedTracks ? Math.ceil(savedTracks.total / pageSize) : 1;
 
   return (
     <>
       <div className="mt-4 ml-4">
-        <h2 className="font-extrabold text-6xl text-white">Saved Tracks</h2>
+        <h2 className="font-extrabold text-6xl text-white">Saved Tracks</h2>{' '}
+        <div className="text-white flex cursor-pointer">
+          <ChevronLeftIcon
+            className="w-6 h-6"
+            onClick={() => {
+              setPage((old) => Math.max(old - 1, 1));
+            }}
+          />
+          <span>{page}</span>
+
+          {!(page >= lastPage) ? (
+            <button>
+              <ChevronRightIcon
+                className="w-6 h-6"
+                onClick={() => {
+                  setPage((old) => old + 1);
+                }}
+              />
+            </button>
+          ) : null}
+        </div>
         <ul>
           {savedTracks
             ? savedTracks.items?.map((track) => (

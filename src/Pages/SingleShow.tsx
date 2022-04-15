@@ -8,6 +8,7 @@ export function SingleShow() {
   const { setSongQueue } = usePlayerControls();
 
   const { data: show } = useSingleShow(showId);
+  console.log(show?.episodes.items[0].uri);
 
   return (
     <div className="ml-4 mt-4">

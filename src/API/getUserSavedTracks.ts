@@ -3,12 +3,14 @@ import { useQuery } from 'react-query';
 import { useAxiosClient } from '../Components/AxiosClientProvider';
 
 type Tracks = {
+  total: number;
   items: {
     track: {
       name: string;
       uri: string;
       duration_ms: number;
       id: string;
+      total: number;
       artists: { id: string; name: string }[];
       album: {
         images: { url: string }[];
@@ -17,12 +19,15 @@ type Tracks = {
   }[];
 };
 
-export const getUserSavedTRacks = async (axiosClient: Axios) => {
+export const getUserSavedTracks = async (
+  axiosClient: Axios,
+  offset: number,
+) => {
   try {
     const response = await axiosClient.get<Tracks>(
       'https://api.spotify.com/v1/me/tracks',
       {
-        params: { limit: 50, offset: 5 },
+        params: { limit: 50, offset: offset },
       },
     );
     return response.data;
@@ -31,8 +36,14 @@ export const getUserSavedTRacks = async (axiosClient: Axios) => {
   }
 };
 
-export function useUserSavedTracks() {
+export function useUserSavedTracks(offset: number) {
   const axiosClient = useAxiosClient();
 
-  return useQuery('userSavedTracks', () => getUserSavedTRacks(axiosClient));
+  return useQuery(
+    ['userSavedTracks', offset],
+    () => getUserSavedTracks(axiosClient, offset),
+    {
+      keepPreviousData: true,
+    },
+  );
 }

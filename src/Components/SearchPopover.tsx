@@ -1,7 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { SearchIcon } from '@heroicons/react/solid';
 import { Fragment, useState } from 'react';
-import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useSearch } from '../API/searchArtists';
 
